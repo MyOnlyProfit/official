@@ -208,7 +208,6 @@
         .lb-prev:hover,.lb-next:hover{border-color:var(--cyan);background:rgba(0,245,255,.08);box-shadow:0 0 20px rgba(0,245,255,.15);}
         .lb-counter{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);font-family:'Space Mono',monospace;font-size:.65rem;color:var(--text-dim);letter-spacing:3px;}
         .lb-counter span{color:var(--pink);font-weight:700;}
-        }
 
         @media(max-width:1024px){
            .hero video{animation:posShift 10s ease-in-out forwards 0.2s,posShift2 10s ease-in-out forwards 10.2s;}@keyframes posShift{0%{object-position:50% 20%;transform:scale(1);}25%{object-position:10% 20%;transform:scale(1);}40%{object-position:20% 20%;transform:scale(1);}70%{object-position:70% 20%;transform:scale(1);}100%{object-position:70% 20%;transform:scale(1);}}@keyframes posShift2{0%{object-position:70% 20%;transform:scale(1);}20%{object-position:65% 20%;transform:scale(1);}40%{object-position:70% 20%;transform:scale(1);}70%{object-position:30% 20%;transform:scale(1);}100%{object-position:10% 20%;transform:scale(1);}}
@@ -488,6 +487,38 @@ function toggleSS() {
     const toggle = document.getElementById('ssToggle');
     panel.classList.toggle('open');
     toggle.classList.toggle('active');
+}
+
+const ssImages=[
+"images/screenshot_1.avif",
+"images/screenshot_2.avif",
+"images/screenshot_3.avif",
+"images/screenshot_4.avif"
+];
+
+let lbIndex=0;
+
+function openLB(i){
+    lbIndex=i;
+    document.getElementById('lb').classList.add('active');
+    updateLB();
+}
+
+function closeLB(e){
+    if(e.target.id==='lb' || e.target.classList.contains('lb-close')){
+        document.getElementById('lb').classList.remove('active');
+    }
+}
+
+function navLB(e,dir){
+    e.stopPropagation();
+    lbIndex=(lbIndex+dir+ssImages.length)%ssImages.length;
+    updateLB();
+}
+
+function updateLB(){
+    document.getElementById('lbImg').src=ssImages[lbIndex];
+    document.getElementById('lbCounter').innerHTML=`<span>${lbIndex+1}</span> / ${ssImages.length}`;
 }
 </script>
 </body>
