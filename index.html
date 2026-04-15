@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyOnlyProfit — OWN THE SYSTEM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --pink:#FF2D7B;
+            --purple:#9D4EDD;
+            --cyan:#00F5FF;
+            --dark:#0A0A0B;
+            --dark2:#111113;
+            --dark3:#1A1A1D;
+            --text:#E0E0E0;
+            --text-dim:#555;
+            --grad:linear-gradient(135deg,#FF2D7B 0%,#9D4EDD 50%,#00F5FF 100%);
+        }
+        html{scroll-behavior:smooth}
+        body{font-family:'Chakra Petch',sans-serif;background:var(--dark);color:var(--text);overflow-x:hidden}
+
+        /* SCANLINES OVERLAY */
+        body::after{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:9999}
+
+        /* NAV */
+        .nav{position:fixed;top:0;width:100%;z-index:1000;padding:16px 40px;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,11,0.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--dark3)}
+        .nav-logo{font-family:'Space Mono',monospace;font-size:1rem;font-weight:700;text-decoration:none;color:var(--pink);letter-spacing:2px;text-transform:uppercase}
+        .nav-logo span{color:var(--cyan)}
+        .nav-links{display:flex;gap:28px;align-items:center;list-style:none}
+        .nav-links a{color:var(--text-dim);text-decoration:none;font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;transition:color .3s}
+        .nav-links a:hover{color:var(--pink)}
+        .nav-cta-f{background:var(--pink)!important;color:var(--dark)!important;padding:8px 18px;font-weight:700!important;clip-path:polygon(0 0,100% 0,100% 70%,90% 100%,0 100%)}
+        .ham-f{display:none;flex-direction:column;gap:4px;cursor:pointer}
+        .ham-f span{width:20px;height:2px;background:var(--pink)}
+
+        .mob-f{display:none;position:fixed;top:0;left:0;width:100%;height:100vh;background:var(--dark);z-index:999;flex-direction:column;justify-content:center;align-items:center;gap:28px}
+        .mob-f.active{display:flex}
+        .mob-f a{color:var(--text);text-decoration:none;font-family:'Space Mono',monospace;font-size:1.2rem;text-transform:uppercase;letter-spacing:3px}
+        .mob-f .mx{position:absolute;top:20px;right:20px;font-size:2rem;cursor:pointer;background:none;border:none;color:var(--pink);font-family:'Space Mono',monospace}
+
+        /* GLITCH TEXT */
+        @keyframes glitch{
+            0%{text-shadow:2px 0 var(--pink),-2px 0 var(--cyan)}
+            25%{text-shadow:-2px 0 var(--pink),2px 0 var(--cyan)}
+            50%{text-shadow:2px -1px var(--pink),-2px 1px var(--cyan)}
+            75%{text-shadow:-1px 2px var(--pink),1px -2px var(--cyan)}
+            100%{text-shadow:2px 0 var(--pink),-2px 0 var(--cyan)}
+        }
+        .glitch{animation:glitch 3s infinite}
+
+        /* HERO */
+        .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px 40px 80px;position:relative}
+        .hero::before{content:'';position:absolute;top:30%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(255,45,123,0.08) 0%,rgba(157,78,221,0.04) 40%,transparent 70%);border-radius:50%}
+
+        .hero-tag{font-family:'Space Mono',monospace;font-size:.65rem;text-transform:uppercase;letter-spacing:4px;color:var(--cyan);margin-bottom:24px;border:1px solid var(--dark3);padding:6px 16px;display:inline-block}
+        .hero h1{font-family:'Space Mono',monospace;font-size:4.5rem;font-weight:700;line-height:1.05;margin-bottom:24px;text-transform:uppercase;letter-spacing:-2px;position:relative;z-index:2}
+        .hero h1 .g1{color:var(--pink)}
+        .hero h1 .g2{color:var(--purple)}
+        .hero h1 .g3{color:var(--cyan)}
+        .hero p{font-size:1rem;color:var(--text-dim);max-width:550px;margin:0 auto 40px;line-height:1.7;font-weight:400}
+        .hero-btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+        .btn-f{padding:16px 36px;font-size:.8rem;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:all .3s;text-transform:uppercase;letter-spacing:2px;font-family:'Chakra Petch',sans-serif;clip-path:polygon(0 0,100% 0,100% 70%,92% 100%,0 100%)}
+        .btn-f.pink{background:var(--pink);color:var(--dark);border:none}
+        .btn-f.pink:hover{background:var(--cyan);transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,45,123,0.3)}
+        .btn-f.cyber{background:transparent;color:var(--text);border:1px solid var(--dark3);clip-path:none}
+        .btn-f.cyber:hover{border-color:var(--cyan);color:var(--cyan)}
+
+        /* GRID BREAK */
+        .grid-break{display:grid;grid-template-columns:repeat(4,1fr);height:300px;gap:2px}
+        .grid-break .gb-item{overflow:hidden;position:relative}
+        .grid-break .gb-item img{width:100%;height:100%;object-fit:cover;filter:grayscale(60%) contrast(1.3) brightness(0.7);transition:all .5s}
+        .grid-break .gb-item:hover img{filter:grayscale(0%) contrast(1) brightness(0.9);transform:scale(1.05)}
+        .grid-break .gb-item::before{content:attr(data-label);position:absolute;bottom:10px;left:10px;font-family:'Space Mono',monospace;font-size:.6rem;color:var(--cyan);text-transform:uppercase;letter-spacing:1px;z-index:2;background:rgba(10,10,11,0.7);padding:4px 8px}
+        .grid-break .gb-item::after{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(transparent 50%,rgba(10,10,11,0.5));pointer-events:none}
+
+        /* STATS */
+        .stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--dark3);border-bottom:1px solid var(--dark3)}
+        .stat-f{padding:40px 20px;text-align:center;border-right:1px solid var(--dark3)}
+        .stat-f:last-child{border-right:none}
+        .stat-f .val{font-family:'Space Mono',monospace;font-size:1.8rem;font-weight:700;color:var(--pink);margin-bottom:4px}
+        .stat-f .lbl{font-size:.6rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-dim)}
+
+        /* SECTION GEN */
+        .sl{font-family:'Space Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:4px;color:var(--cyan);margin-bottom:12px}
+        .st{font-family:'Space Mono',monospace;font-size:2.4rem;font-weight:700;line-height:1.15;text-transform:uppercase;margin-bottom:16px}
+        .st .pk{color:var(--pink)}
+        .st .pu{color:var(--purple)}
+        .st .cy{color:var(--cyan)}
+        .ss{font-size:.9rem;color:var(--text-dim);line-height:1.7;max-width:500px}
+
+        /* PROBLEM */
+        .problem{padding:120px 60px;max-width:1200px;margin:0 auto}
+        .prob-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:50px}
+        .prob-card{background:var(--dark2);padding:36px;border:1px solid var(--dark3)}
+        .prob-card.bad{border-left:2px solid var(--pink)}
+        .prob-card.good{border-left:2px solid var(--cyan)}
+        .prob-card h3{font-family:'Space Mono',monospace;font-size:.85rem;text-transform:uppercase;letter-spacing:2px;margin-bottom:24px}
+        .prob-card.bad h3{color:var(--pink)}
+        .prob-card.good h3{color:var(--cyan)}
+        .pi-f{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
+        .pi-f .ic{font-family:'Space Mono',monospace;font-size:.8rem;margin-top:2px}
+        .pi-f h4{font-size:.85rem;font-weight:600;margin-bottom:2px}
+        .pi-f p{font-size:.75rem;color:var(--text-dim);line-height:1.5}
+
+        /* HOW */
+        .how{padding:120px 60px;background:var(--dark2);border-top:1px solid var(--dark3);border-bottom:1px solid var(--dark3)}
+        .how-inner{max-width:1200px;margin:0 auto}
+        .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:50px}
+        .how-card{background:var(--dark);border:1px solid var(--dark3);padding:36px;transition:all .3s;position:relative}
+        .how-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:var(--grad);opacity:0;transition:opacity .3s}
+        .how-card:hover::before{opacity:1}
+        .how-card:hover{border-color:rgba(255,45,123,0.2)}
+        .how-card .num{font-family:'Space Mono',monospace;font-size:2.5rem;font-weight:700;color:rgba(255,45,123,0.15);margin-bottom:12px}
+        .how-card h3{font-size:.9rem;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+        .how-card p{font-size:.8rem;color:var(--text-dim);line-height:1.6}
+
+        /* PRICING */
+        .pricing{padding:120px 60px;max-width:1100px;margin:0 auto}
+        .pricing .center{text-align:center}
+        .p-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:50px}
+        .p-card{background:var(--dark2);border:1px solid var(--dark3);padding:40px;position:relative;transition:all .3s}
+        .p-card.glow{border-color:var(--pink);box-shadow:0 0 40px rgba(255,45,123,0.08)}
+        .p-card .pb{position:absolute;top:-1px;left:0;background:var(--pink);color:var(--dark);padding:4px 14px;font-size:.55rem;font-weight:700;text-transform:uppercase;letter-spacing:2px}
+        .p-card .pt{font-size:.6rem;text-transform:uppercase;letter-spacing:2px;color:var(--text-dim);margin-bottom:6px}
+        .p-card h3{font-family:'Space Mono',monospace;font-size:1.2rem;font-weight:700;text-transform:uppercase;margin-bottom:14px}
+        .p-card .pv{font-family:'Space Mono',monospace;font-size:2.5rem;font-weight:700;margin-bottom:6px}
+        .p-card.glow .pv{color:var(--pink)}
+        .p-card .pn{font-size:.7rem;color:var(--text-dim);margin-bottom:28px}
+        .p-card .fl{list-style:none;margin-bottom:32px}
+        .p-card .fl li{padding:8px 0;font-size:.8rem;color:var(--text-dim);display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--dark3)}
+        .p-card .fl li .ck{color:var(--cyan);font-weight:700;font-family:'Space Mono',monospace}
+        .p-btn-f{width:100%;padding:14px;font-size:.75rem;font-weight:700;cursor:pointer;transition:all .3s;text-align:center;display:block;text-decoration:none;text-transform:uppercase;letter-spacing:2px;font-family:'Chakra Petch',sans-serif;clip-path:polygon(0 0,100% 0,100% 75%,93% 100%,0 100%)}
+        .p-btn-f.pk{background:var(--pink);color:var(--dark);border:none}
+        .p-btn-f.pk:hover{background:var(--cyan);box-shadow:0 8px 30px rgba(255,45,123,0.3)}
+        .p-btn-f.out{background:transparent;color:var(--text);border:1px solid var(--dark3);clip-path:none}
+        .p-btn-f.out:hover{border-color:var(--cyan);color:var(--cyan)}
+
+        /* REVIEWS */
+        .reviews{padding:100px 60px;border-top:1px solid var(--dark3)}
+        .rev-inner{max-width:1200px;margin:0 auto;text-align:center}
+        .r-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:50px}
+        .r-card{background:var(--dark2);border:1px solid var(--dark3);padding:32px;text-align:left}
+        .r-card .rs{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--pink);margin-bottom:14px;letter-spacing:3px}
+        .r-card .rq{font-size:.9rem;line-height:1.7;margin-bottom:18px;color:rgba(255,255,255,0.8)}
+        .r-card .rn{font-size:.8rem;font-weight:600;color:var(--cyan)}
+        .r-card .rr{font-size:.65rem;color:var(--text-dim)}
+
+        /* CTA */
+        .cta{padding:120px 40px;text-align:center;position:relative}
+        .cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(255,45,123,0.06) 0%,rgba(157,78,221,0.03) 40%,transparent 70%);border-radius:50%}
+        .cta h2{font-family:'Space Mono',monospace;font-size:2.4rem;font-weight:700;text-transform:uppercase;margin-bottom:14px;position:relative;z-index:2}
+        .cta p{color:var(--text-dim);margin-bottom:36px;position:relative;z-index:2}
+        .cta-form{max-width:420px;margin:0 auto;display:flex;flex-direction:column;gap:10px;position:relative;z-index:2}
+        .cta-form input,.cta-form textarea{background:var(--dark2);border:1px solid var(--dark3);padding:14px 16px;font-family:'Chakra Petch',sans-serif;font-size:.85rem;color:var(--text);outline:none;transition:border-color .3s}
+        .cta-form input:focus,.cta-form textarea:focus{border-color:var(--pink)}
+        .cta-form textarea{resize:vertical;min-height:80px}
+
+        /* FOOTER */
+        .footer{padding:30px 40px;border-top:1px solid var(--dark3);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+        .footer a{color:var(--text-dim);text-decoration:none;font-size:.65rem;letter-spacing:1px;text-transform:uppercase;transition:color .3s;font-family:'Space Mono',monospace}
+        .footer a:hover{color:var(--pink)}
+        .footer .fl{display:flex;gap:20px}
+        .footer .copy{font-size:.6rem;color:var(--text-dim);font-family:'Space Mono',monospace}
+
+        .fd{opacity:0;transform:translateY(20px);transition:all .7s ease}
+        .fd.vis{opacity:1;transform:translateY(0)}
+
+        /* GLITCH HOVER on h1 */
+        .hero h1:hover{animation:glitch .3s infinite}
+
+        @media(max-width:1024px){
+            .hero h1{font-size:3.2rem}
+            .grid-break{grid-template-columns:repeat(2,1fr);height:250px}
+            .grid-break .gb-item:nth-child(n+3){display:none}
+            .stats{grid-template-columns:repeat(2,1fr)}
+            .stat-f:nth-child(2){border-right:none}
+            .stat-f:nth-child(1),.stat-f:nth-child(2){border-bottom:1px solid var(--dark3)}
+        }
+        @media(max-width:768px){
+            .nav{padding:14px 20px}
+            .nav-links{display:none}
+            .ham-f{display:flex}
+            .hero{padding:100px 20px 60px}
+            .hero h1{font-size:2.2rem;letter-spacing:-1px}
+            .hero-btns{flex-direction:column;width:100%}
+            .btn-f{width:100%;justify-content:center;clip-path:none}
+            .grid-break{grid-template-columns:1fr 1fr;height:200px}
+            .stats{grid-template-columns:1fr 1fr}
+            .problem,.pricing,.cta{padding:80px 20px}
+            .how,.reviews{padding:80px 20px}
+            .prob-grid,.p-grid,.r-grid{grid-template-columns:1fr}
+            .how-grid{grid-template-columns:1fr}
+            .st{font-size:1.8rem}
+            .footer{padding:24px 20px;flex-direction:column;text-align:center}
+        }
+        @media(max-width:480px){
+            .hero h1{font-size:1.8rem}
+            .stats{grid-template-columns:1fr}
+            .stat-f{border-right:none;border-bottom:1px solid var(--dark3)}
+            .grid-break{grid-template-columns:1fr;height:150px}
+            .grid-break .gb-item:nth-child(2){display:none}
+        }
+    </style>
+</head>
+<body>
+
+<nav class="nav">
+    <a href="#" class="nav-logo">MY<span>ONLY</span>PROFIT</a>
+    <ul class="nav-links">
+        <li><a href="#prob">About</a></li>
+        <li><a href="#how">Strategy</a></li>
+        <li><a href="#price">Pricing</a></li>
+        <li><a href="#cta">Contact</a></li>
+        <li><a href="#cta" class="nav-cta-f">FREE_ANALYSIS</a></li>
+    </ul>
+    <div class="ham-f" id="hamF"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="mob-f" id="mobF">
+    <button class="mx" id="mxF">[X]</button>
+    <a href="#prob" class="ml">About</a>
+    <a href="#how" class="ml">Strategy</a>
+    <a href="#price" class="ml">Pricing</a>
+    <a href="#cta" class="ml">Contact</a>
+</div>
+
+<section class="hero">
+    <div class="hero-tag">// STRATEGY_2026</div>
+    <h1 class="glitch"><span class="g1">OWN</span> THE<br><span class="g2">SYSTEM.</span><br><span class="g3">KEEP</span> IT ALL.</h1>
+    <p>No agencies. No 50% cuts. A proven system to turn followers into paying subscribers — 100% yours.</p>
+    <div class="hero-btns">
+        <a href="#price" class="btn-f pink">GET STRATEGY →</a>
+        <a href="#cta" class="btn-f cyber">FREE ANALYSIS</a>
+    </div>
+</section>
+
+<div class="grid-break">
+    <div class="gb-item" data-label="$8.2k/mo"><img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=500&q=80" alt="Creator"></div>
+    <div class="gb-item" data-label="3x income"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&q=80" alt="Creator"></div>
+    <div class="gb-item" data-label="no face"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&q=80" alt="Creator"></div>
+    <div class="gb-item" data-label="$22k/mo"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&q=80" alt="Creator"></div>
+</div>
+
+<div class="stats">
+    <div class="stat-f"><div class="val">$12.4K</div><div class="lbl">Avg Monthly</div></div>
+    <div class="stat-f"><div class="val">30</div><div class="lbl">Days to Results</div></div>
+    <div class="stat-f"><div class="val">200+</div><div class="lbl">Creators</div></div>
+    <div class="stat-f"><div class="val">4.9★</div><div class="lbl">Rating</div></div>
+</div>
+
+<section class="problem fd" id="prob">
+    <div class="sl">// THE_PROBLEM</div>
+    <h2 class="st">You don't need more content.<br>You need a <span class="pk">system.</span></h2>
+    <p class="ss">Creating. Posting. But the money isn't matching the effort. Here's the disconnect.</p>
+    <div class="prob-grid">
+        <div class="prob-card bad">
+            <h3>[ STUCK ]</h3>
+            <div class="pi-f"><span class="ic" style="color:var(--pink)">✕</span><div><h4>Posts don't convert</h4><p>Content without strategy = noise</p></div></div>
+            <div class="pi-f"><span class="ic" style="color:var(--pink)">✕</span><div><h4>Followers don't buy</h4><p>Gaps in your funnel</p></div></div>
+            <div class="pi-f"><span class="ic" style="color:var(--pink)">✕</span><div><h4>You're guessing</h4><p>Random = random results</p></div></div>
+        </div>
+        <div class="prob-card good">
+            <h3>[ FIXED ]</h3>
+            <div class="pi-f"><span class="ic" style="color:var(--cyan)">→</span><div><h4>Attention → income</h4><p>Clear path to subscription</p></div></div>
+            <div class="pi-f"><span class="ic" style="color:var(--cyan)">→</span><div><h4>Step-by-step system</h4><p>Execute, track, scale</p></div></div>
+            <div class="pi-f"><span class="ic" style="color:var(--cyan)">→</span><div><h4>Data-backed strategies</h4><p>From 200+ real creators</p></div></div>
+        </div>
+    </div>
+</section>
+
+<section class="how fd" id="how">
+    <div class="how-inner">
+        <div class="sl">// THE_PROCESS</div>
+        <h2 class="st">Purchase → Implement → <span class="cy">Profit</span></h2>
+        <div class="how-grid">
+            <div class="how-card">
+                <div class="num">01</div>
+                <h3>Choose Strategy</h3>
+                <p>Select Kickstart or PRO. Both designed to scale from day one.</p>
+            </div>
+            <div class="how-card">
+                <div class="num">02</div>
+                <h3>Instant Access</h3>
+                <p>Download link auto-sent to email. 100+ pages of strategy.</p>
+            </div>
+            <div class="how-card">
+                <div class="num">03</div>
+                <h3>Apply & Earn</h3>
+                <p>Follow the steps, track results, generate income in 30 days.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="pricing fd" id="price">
+    <div class="center">
+        <div class="sl">// INVESTMENT</div>
+        <h2 class="st">One payment. <span class="pk">Keep everything.</span></h2>
+    </div>
+    <div class="p-grid">
+        <div class="p-card">
+            <div class="pt">SELF_GUIDED</div>
+            <h3>Complete Kickstart</h3>
+            <div class="pv">€499</div>
+            <div class="pn">One-time · Instant access</div>
+            <ul class="fl">
+                <li><span class="ck">✓</span> 30-Day Content System</li>
+                <li><span class="ck">✓</span> TikTok Traffic System</li>
+                <li><span class="ck">✓</span> Bio Conversion System</li>
+                <li><span class="ck">✓</span> Predictable Income System</li>
+                <li><span class="ck">✓</span> DM Conversion System</li>
+            </ul>
+            <a href="#cta" class="p-btn-f out">START EARNING →</a>
+        </div>
+        <div class="p-card glow">
+            <div class="pb">1_SPOT/WEEK</div>
+            <div class="pt">DONE_WITH_YOU</div>
+            <h3>Kickstart PRO™</h3>
+            <div class="pv">€1,999</div>
+            <div class="pn">One-time · Apply below</div>
+            <ul class="fl">
+                <li><span class="ck">✓</span> Everything in Kickstart</li>
+                <li><span class="ck">✓</span> Personalized Strategy</li>
+                <li><span class="ck">✓</span> Done-With-You Setup</li>
+                <li><span class="ck">✓</span> 1-on-1 Support</li>
+                <li><span class="ck">✓</span> Conversion Optimization</li>
+            </ul>
+            <a href="#cta" class="p-btn-f pk">APPLY FOR PRO →</a>
+        </div>
+    </div>
+</section>
+
+<section class="reviews fd">
+    <div class="rev-inner">
+        <div class="sl">// PROOF</div>
+        <h2 class="st">Real creators. <span class="pu">Real money.</span></h2>
+        <div class="r-grid">
+            <div class="r-card">
+                <div class="rs">★★★★★</div>
+                <p class="rq">"Left agency, tripled income in 2 months. Different from anything else."</p>
+                <div class="rn">Jessica M.</div>
+                <div class="rr">Fitness · $14k/mo</div>
+            </div>
+            <div class="r-card">
+                <div class="rs">★★★★★</div>
+                <p class="rq">"DM scripts paid for everything in week one. Game-changing."</p>
+                <div class="rn">Kira L.</div>
+                <div class="rr">Lifestyle · $8k/mo</div>
+            </div>
+            <div class="r-card">
+                <div class="rs">★★★★★</div>
+                <p class="rq">"Zero to consistent income, 2 hours/day. Wish I found this sooner."</p>
+                <div class="rn">Alex R.</div>
+                <div class="rr">Anonymous · $5.5k/mo</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta" id="cta">
+    <div class="sl">// GET_STARTED</div>
+    <h2>READY TO <span style="color:var(--pink)">OWN</span> IT?</h2>
+    <p>Free analysis · PRO application · Any question</p>
+    <form class="cta-form" onsubmit="hF(event)">
+        <input type="email" placeholder="your@email.com" required>
+        <input type="text" placeholder="OnlyFans link (optional)">
+        <textarea placeholder="Your message"></textarea>
+        <button type="submit" class="btn-f pink" style="border:none;width:100%;justify-content:center">SEND →</button>
+    </form>
+</section>
+
+<footer class="footer">
+    <a href="#" class="nav-logo" style="font-size:.8rem">MY<span>ONLY</span>PROFIT</a>
+    <div class="fl">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">@MyOnlyProfit</a>
+    </div>
+    <span class="copy">© 2026 MyOnlyProfit</span>
+</footer>
+
+<script>
+document.getElementById('hamF').addEventListener('click',()=>document.getElementById('mobF').classList.add('active'));
+document.getElementById('mxF').addEventListener('click',()=>document.getElementById('mobF').classList.remove('active'));
+document.querySelectorAll('.ml').forEach(l=>l.addEventListener('click',()=>document.getElementById('mobF').classList.remove('active')));
+const ob=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')})},{threshold:.1});
+document.querySelectorAll('.fd').forEach(el=>ob.observe(el));
+function hF(e){e.preventDefault();const b=e.target.querySelector('button');b.textContent='✓ SENT';b.style.background='var(--cyan)';setTimeout(()=>{b.textContent='SEND →';b.style.background='';e.target.reset()},3000)}
+</script>
+</body>
+</html>
