@@ -187,7 +187,7 @@
         .hero h1:hover{animation:glitch .3s infinite}
 
         @media(max-width:1024px){
-            .hero video{animation:posShift 8s ease forwards 2s;}@keyframes posShift{from{object-position:0% 20%;}to{object-position:70% 20%;}
+            .hero video{animation:posShift 12s ease-in-out forwards 2s;}@keyframes posShift{0%{object-position:0% 20%;transform:scale(1);}40%{object-position:70% 20%;transform:scale(1.25);}65%{object-position:70% 20%;transform:scale(1.25);}100%{object-position:100% 20%;transform:scale(1)}
             .hero h1{font-size:3.2rem}
             .grid-break{grid-template-columns:repeat(2,1fr);height:250px}
             .grid-break .gb-item:nth-child(n+3){display:none}
