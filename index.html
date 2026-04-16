@@ -516,7 +516,9 @@
             <button class="peek-tab active" onclick="switchPage(0)">PAGE_01</button>
             <button class="peek-tab" onclick="switchPage(1)">PAGE_02</button>
             <button class="peek-tab" onclick="switchPage(2)">PAGE_03</button>
-            <button class="peek-tab" onclick="switchPage(3)">UNLOCK_FULL // 123 PAGES 🔒</button>
+            <button class="peek-tab" onclick="switchPage(3)">PAGE_04</button>
+            <button class="peek-tab" onclick="switchPage(4)">PAGE_05</button>
+            <button class="peek-tab" onclick="switchPage(5)">UNLOCK_FULL // 123 PAGES 🔒</button>
         </div>
 
         <div class="peek-viewport" id="peekViewport">
@@ -539,7 +541,9 @@
                 <div class="peek-dot active" onclick="switchPage(0)"></div>
                 <div class="peek-dot" onclick="switchPage(1)"></div>
                 <div class="peek-dot" onclick="switchPage(2)"></div>
-                <div class="peek-dot peek-dot-locked" onclick="switchPage(3)"></div>
+                <div class="peek-dot" onclick="switchPage(3)"></div>
+                <div class="peek-dot" onclick="switchPage(4)"></div>
+                <div class="peek-dot peek-dot-locked" onclick="switchPage(5)"></div>
             </div>
             <span class="peek-page-label" id="peekLabel">30-Day Content System</span>
             <span class="peek-counter"><span id="peekCurrent">01</span>/04</span>
@@ -751,9 +755,11 @@ function handleCtaSubmit(e) {
 
 // PEEK INSIDE
 const peekPages = [
-  { label:'30-Day Content System', src:'pages/page1.html' },
-  { label:'TikTok Traffic System', src:'pages/page2.html' },
-  { label:'Bio Conversion System', src:'pages/page3.html' }
+  { label:'WHY MOST CREATORS STAY BROKE', src:'pages/page1.html' },
+  { label:'TABLE OF CONTENTS SECTION 02', src:'pages/page2.html' },
+  { label:'KEY METRICS (KPI)', src:'pages/page3.html' },
+  { label:'PLAN DAY 7', src:'pages/page4.html' },
+  { label:'HIGH-PERFORMING MESSAGE STYLES', src:'pages/page5.html' },
 ];
 
 function switchPage(idx) {
