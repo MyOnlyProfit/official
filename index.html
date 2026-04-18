@@ -766,7 +766,7 @@ function selectCtaType(btn) {
 }
 
 // CTA Form Submit
-function handleCtaSubmit(e) {
+async function handleCtaSubmit(e) { 
     e.preventDefault();
 
     const submitBtn = document.getElementById('ctaSubmitBtn');
@@ -800,7 +800,7 @@ function handleCtaSubmit(e) {
         submitBtn.textContent = 'FAILED';
     }
 }
-    }
+
 
 // PEEK INSIDE
 const peekPages = [
