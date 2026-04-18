@@ -789,12 +789,17 @@ async function handleCtaSubmit(e) {
             body: JSON.stringify(data)
         });
 
-        if (res.ok) {
-            submitBtn.textContent = '✓ SENT';
-            submitBtn.style.background = 'var(--cyan)';
-        } else {
-            submitBtn.textContent = 'ERROR';
-        }
+if (res.ok) {
+    submitBtn.textContent = '✓ SENT';
+    submitBtn.style.background = 'var(--cyan)';
+
+} else if (res.status === 429) {
+    submitBtn.textContent = 'TOO MANY REQUESTS';
+    submitBtn.style.background = '#ff3b3b';
+
+} else {
+    submitBtn.textContent = 'ERROR';
+}
 
     } catch (err) {
         submitBtn.textContent = 'FAILED';
