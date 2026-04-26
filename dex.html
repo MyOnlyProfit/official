@@ -287,7 +287,7 @@
       transition:transform 7s cubic-bezier(.16,1,.3,1);
     }
     .hero.in-view .hero-bg{
-      transform:scale(1.02);
+    .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;transform:scale(1.08);filter:brightness(.65) contrast(1.1) saturate(.9);}
     }
 
     .hero-overlay{
@@ -1248,7 +1248,9 @@
 
   <!-- Hero -->
   <section class="hero" id="hero">
-    <div class="hero-bg"></div>
+<video class="hero-video" autoplay muted loop playsinline>
+  <source src="video/background.mp4" type="video/mp4" />
+</video>
     <div class="hero-overlay"></div>
 
     <div class="hero-meta hero-meta-left">Issue 01</div>
