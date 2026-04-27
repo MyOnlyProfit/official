@@ -1974,11 +1974,11 @@
     });
 
     // ── Contact form type selector ──
-// ── CTA type selector (NEW version of contact system) ──
 let currentCtaType = 'analysis';
 
 function selectCtaType(btn) {
-  document.querySelectorAll('.cta-sel-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.cta-sel-btn')
+    .forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
 
   currentCtaType = btn.dataset.type;
@@ -1990,19 +1990,19 @@ function selectCtaType(btn) {
   const subtitle     = document.getElementById('ctaSubtitle');
   const submitBtn    = document.getElementById('ctaSubmitBtn');
 
-  // hide all optional fields (same logic as old system)
-  [profileInput, incomeInput, goalsInput, messageInput].forEach(el => {
-    if (el) el.style.display = 'none';
+  // reset ALL fields first (important fix)
+  const allFields = [profileInput, incomeInput, goalsInput, messageInput];
+  allFields.forEach(el => {
+    if (el) {
+      el.style.display = 'none';
+      el.removeAttribute('required');
+    }
   });
-
-  // remove required state
-  if (profileInput) profileInput.removeAttribute('required');
-  if (messageInput) messageInput.removeAttribute('required');
 
   // ── ANALYSIS ──
   if (currentCtaType === 'analysis') {
-    if (profileInput) profileInput.style.display = 'block';
-    if (profileInput) profileInput.setAttribute('required', 'required');
+    profileInput.style.display = 'block';
+    profileInput.setAttribute('required', 'required');
 
     subtitle.textContent =
       "We'll review your OnlyFans profile and send a full strategy breakdown to your email — free.";
@@ -2012,11 +2012,11 @@ function selectCtaType(btn) {
 
   // ── PRO ──
   else if (currentCtaType === 'pro') {
-    if (profileInput) profileInput.style.display = 'block';
-    if (incomeInput) incomeInput.style.display = 'block';
-    if (goalsInput) goalsInput.style.display = 'block';
+    profileInput.style.display = 'block';
+    incomeInput.style.display = 'block';
+    goalsInput.style.display = 'block';
 
-    if (profileInput) profileInput.setAttribute('required', 'required');
+    profileInput.setAttribute('required', 'required');
 
     subtitle.textContent =
       'Apply for a 1-on-1 PRO spot — limited to one creator per week.';
@@ -2026,60 +2026,15 @@ function selectCtaType(btn) {
 
   // ── QUESTION ──
   else if (currentCtaType === 'question') {
-    if (messageInput) messageInput.style.display = 'block';
-    if (messageInput) messageInput.setAttribute('required', 'required');
+    messageInput.style.display = 'block';
+    messageInput.setAttribute('required', 'required');
+
+    profileInput.style.display = 'block';
 
     subtitle.textContent =
       'Anything on your mind — we reply within 24 hours.';
 
     submitBtn.textContent = 'SEND MESSAGE →';
-  }
-}
-
-
-// ── CTA submit (clean version of old handler) ──
-async function handleCtaSubmit(e) {
-  e.preventDefault();
-
-  if (!document.getElementById('ctaPrivacy').checked) {
-    alert('Please accept the Privacy Policy to continue.');
-    return;
-  }
-
-  const submitBtn = document.getElementById('ctaSubmitBtn');
-  const originalText = submitBtn.textContent;
-
-  submitBtn.textContent = 'SENDING...';
-  submitBtn.disabled = true;
-
-  const data = {
-    email: document.getElementById('ctaEmail').value,
-    profile: document.getElementById('ctaProfile').value,
-    income: document.getElementById('ctaIncome').value,
-    goals: document.getElementById('ctaGoals').value,
-    message: document.getElementById('ctaMessage').value,
-    type: currentCtaType,
-    timestamp: new Date().toISOString()
-  };
-
-  try {
-    const res = await fetch('https://project-ke2z2.vercel.app/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-
-    if (res.ok) {
-      submitBtn.textContent = '✓ SENT';
-      submitBtn.style.background = 'var(--cyan)';
-      submitBtn.style.color = 'var(--dark)';
-    } else {
-      submitBtn.textContent = 'ERROR — TRY AGAIN';
-      submitBtn.disabled = false;
-    }
-  } catch (err) {
-    submitBtn.textContent = 'FAILED — TRY AGAIN';
-    submitBtn.disabled = false;
   }
 }
 
