@@ -1973,12 +1973,11 @@
       if (e.key === "Escape") closeModal();
     });
 
-    // ── Contact form type selector ──
+// ── CTA type selector (OLD WORKING VERSION RESTORED) ──
 let currentCtaType = 'analysis';
 
 function selectCtaType(btn) {
-  document.querySelectorAll('.cta-sel-btn')
-    .forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.cta-sel-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
 
   currentCtaType = btn.dataset.type;
@@ -1990,16 +1989,17 @@ function selectCtaType(btn) {
   const subtitle     = document.getElementById('ctaSubtitle');
   const submitBtn    = document.getElementById('ctaSubmitBtn');
 
-  // reset ALL fields first (important fix)
-  const allFields = [profileInput, incomeInput, goalsInput, messageInput];
-  allFields.forEach(el => {
-    if (el) {
-      el.style.display = 'none';
-      el.removeAttribute('required');
-    }
-  });
+  // hide all optional fields
+  if (profileInput) profileInput.style.display = 'none';
+  if (incomeInput) incomeInput.style.display = 'none';
+  if (goalsInput) goalsInput.style.display = 'none';
+  if (messageInput) messageInput.style.display = 'none';
 
-  // ── ANALYSIS ──
+  // remove required
+  if (profileInput) profileInput.removeAttribute('required');
+  if (messageInput) messageInput.removeAttribute('required');
+
+  // ANALYSIS
   if (currentCtaType === 'analysis') {
     profileInput.style.display = 'block';
     profileInput.setAttribute('required', 'required');
@@ -2010,7 +2010,7 @@ function selectCtaType(btn) {
     submitBtn.textContent = 'GET FREE ANALYSIS →';
   }
 
-  // ── PRO ──
+  // PRO
   else if (currentCtaType === 'pro') {
     profileInput.style.display = 'block';
     incomeInput.style.display = 'block';
@@ -2024,12 +2024,10 @@ function selectCtaType(btn) {
     submitBtn.textContent = 'APPLY FOR PRO →';
   }
 
-  // ── QUESTION ──
+  // QUESTION
   else if (currentCtaType === 'question') {
     messageInput.style.display = 'block';
     messageInput.setAttribute('required', 'required');
-
-    profileInput.style.display = 'block';
 
     subtitle.textContent =
       'Anything on your mind — we reply within 24 hours.';
