@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1529,12 +1528,12 @@
 
       <div class="testimonial-slider reveal">
         <div class="testimonial-track" id="testimonialTrack">
-          <!-- Testimonial 1 -->
+          <!-- Testimonial 1 — ss-1 -->
           <div class="testimonial-card">
             <div class="testimonial-quote">"</div>
             <p class="testimonial-text">"Left agency, tripled income in 2 months. Different from anything else."</p>
             <div class="testimonial-author">
-            <img src="images/ss-1.avif" class="testimonial-avatar" alt="Jenni A." />
+              <img src="images/onlyfans-logo.png" class="testimonial-avatar" alt="Jenni A." />
               <div>
                 <div class="testimonial-name">Jenni A.</div>
                 <div class="testimonial-role">OnlyFans Creator • $5.6k/mo</div>
@@ -1548,12 +1547,12 @@
             </div>
           </div>
 
-          <!-- Testimonial 2 -->
+          <!-- Testimonial 2 — ss-2 -->
           <div class="testimonial-card">
             <div class="testimonial-quote">"</div>
             <p class="testimonial-text">"DM scripts paid for everything in one month. Game-changing."</p>
             <div class="testimonial-author">
-            <img src="images/ss-2.avif" class="testimonial-avatar" alt="Janita S." />
+              <img src="images/onlyfans-logo.png" class="testimonial-avatar" alt="Alex R." />
               <div>
                 <div class="testimonial-name">Alex R.</div>
                 <div class="testimonial-role">OnlyFans Creator • $3.2k/mo</div>
@@ -1567,12 +1566,12 @@
             </div>
           </div>
 
-          <!-- Testimonial 3 -->
+          <!-- Testimonial 3 — ss-3 + ss-4 -->
           <div class="testimonial-card">
             <div class="testimonial-quote">"</div>
             <p class="testimonial-text">"Zero to consistent income, 4-6 hours/day. Empire paid for itself in the first weeks"</p>
             <div class="testimonial-author">
-             <img src="images/ss-2.avif" class="testimonial-avatar" alt="Janita S." />
+              <img src="images/onlyfans-logo.png" class="testimonial-avatar" alt="Janita S." />
               <div>
                 <div class="testimonial-name">Janita S.</div>
                 <div class="testimonial-role">OnlyFans Creator • $6.4k/mo</div>
@@ -1928,10 +1927,13 @@
     startAutoplay();
 
     // ── Screenshot modal data ──
+    // Index 0 = Jenni A.  → ss-1
+    // Index 1 = Alex R.   → ss-2
+    // Index 2 = Janita S. → ss-3 + ss-4
     const screenshotData = [
-      { name: "Jenni A.", earnings: "$47,892", images: ["https://picsum.photos/id/1015/900/1450"] },
-      { name: "Janita S.", earnings: "$28,410", images: ["https://picsum.photos/id/160/900/1450"] },
-      { name: "Alex R.", earnings: "$31,650", images: ["https://picsum.photos/id/201/900/600", "https://picsum.photos/id/29/900/600"] }
+      { name: "Jenni A.",  earnings: "$47,892", images: ["images/ss-1.avif"] },
+      { name: "Alex R.",   earnings: "$31,650", images: ["images/ss-2.avif"] },
+      { name: "Janita S.", earnings: "$28,410", images: ["images/ss-3.avif", "images/ss-4.avif"] }
     ];
 
     function showScreenshot(index) {
