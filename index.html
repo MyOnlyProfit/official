@@ -1973,75 +1973,112 @@
       if (e.key === "Escape") closeModal();
     });
 
-// ── WORKING CONTACT FORM ──
-let currentContactType = 'analysis';
+// CTA Type Selection
+let currentCtaType = 'analysis';
 
 function selectContactType(btn) {
-  document.querySelectorAll('.contact-type-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  currentContactType = btn.dataset.type;
-
-  const fieldProfile = document.getElementById('fieldProfile');
-  const fieldIncome = document.getElementById('fieldIncome');
-  const fieldGoals = document.getElementById('fieldGoals');
-  const fieldMessage = document.getElementById('fieldMessage');
-  const inputProfile = document.getElementById('contactProfile');
-  const inputMessage = document.getElementById('contactMessage');
-  const subtitle = document.getElementById('contactSubtitle');
-  const submitBtn = document.getElementById('contactSubmitBtn');
-
-  // Hide all
-  fieldProfile.classList.add('form-field-hidden');
-  fieldIncome.classList.add('form-field-hidden');
-  fieldGoals.classList.add('form-field-hidden');
-  fieldMessage.classList.add('form-field-hidden');
-  
-  // Remove required
-  inputProfile.removeAttribute('required');
-  inputMessage.removeAttribute('required');
-
-  if (currentContactType === 'analysis') {
-    fieldProfile.classList.remove('form-field-hidden');
-    inputProfile.setAttribute('required', 'required');
-    subtitle.textContent = "We'll review your OnlyFans profile and send a full strategy breakdown to your email — completely free.";
-    submitBtn.textContent = 'Get Free Analysis →';
-  } else if (currentContactType === 'pro') {
-    fieldProfile.classList.remove('form-field-hidden');
-    fieldIncome.classList.remove('form-field-hidden');
-    fieldGoals.classList.remove('form-field-hidden');
-    inputProfile.setAttribute('required', 'required');
-    subtitle.textContent = 'Apply for a 1-on-1 Empire spot — limited to one creator per week.';
-    submitBtn.textContent = 'Apply for Empire →';
-  } else if (currentContactType === 'question') {
-    fieldMessage.classList.remove('form-field-hidden');
-    inputMessage.setAttribute('required', 'required');
-    subtitle.textContent = 'Anything on your mind — we reply within 24 hours.';
-    submitBtn.textContent = 'Send Message →';
-  }
+    // Remove active from all
+    document.querySelectorAll('.contact-type-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    
+    currentCtaType = btn.getAttribute('data-type');
+    
+    const profileInput = document.getElementById('contactProfile');
+    const incomeInput = document.getElementById('contactIncome');
+    const messageTextarea = document.getElementById('contactMessage');
+    const goalsTextarea = document.getElementById('contactGoals');
+    const subtitle = document.getElementById('contactSubtitle');
+    const submitBtn = document.getElementById('contactSubmitBtn');
+    
+    // Hide all conditional fields
+    document.getElementById('fieldProfile').classList.add('form-field-hidden');
+    document.getElementById('fieldIncome').classList.add('form-field-hidden');
+    document.getElementById('fieldMessage').classList.add('form-field-hidden');
+    document.getElementById('fieldGoals').classList.add('form-field-hidden');
+    
+    // Reset required
+    profileInput.removeAttribute('required');
+    messageTextarea.removeAttribute('required');
+    
+    if (currentCtaType === 'analysis') {
+        document.getElementById('fieldProfile').classList.remove('form-field-hidden');
+        profileInput.setAttribute('required', 'required');
+        subtitle.textContent = "We'll review your OnlyFans profile and send a full strategy breakdown to your email — free.";
+        submitBtn.textContent = 'GET FREE ANALYSIS →';
+    } else if (currentCtaType === 'pro') {
+        document.getElementById('fieldProfile').classList.remove('form-field-hidden');
+        document.getElementById('fieldIncome').classList.remove('form-field-hidden');
+        document.getElementById('fieldGoals').classList.remove('form-field-hidden');
+        profileInput.setAttribute('required', 'required');
+        subtitle.textContent = 'Apply for a 1-on-1 Empire spot — limited to one creator per week.';
+        submitBtn.textContent = 'APPLY FOR EMPIRE →';
+    } else if (currentCtaType === 'question') {
+        document.getElementById('fieldMessage').classList.remove('form-field-hidden');
+        messageTextarea.setAttribute('required', 'required');
+        subtitle.textContent = 'Anything on your mind — we reply within 24 hours.';
+        submitBtn.textContent = 'SEND MESSAGE →';
+    }
 }
 
-function handleContactSubmit(event) {
-  event.preventDefault();
+// CTA Form Submit
+async function handleContactSubmit(e) {
+  e.preventDefault();
+
+  const privacyChecked = document.getElementById('contactPrivacy').checked;
+  if (!privacyChecked) {
+    alert('Please accept the Privacy Policy to continue.');
+    return;
+  }
+
   const submitBtn = document.getElementById('contactSubmitBtn');
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Sending...';
-  
+
   const data = {
-    type: currentContactType,
     email: document.getElementById('contactEmail').value,
     profile: document.getElementById('contactProfile').value,
     income: document.getElementById('contactIncome').value,
+    message: document.getElementById('contactMessage').value,
     goals: document.getElementById('contactGoals').value,
-    message: document.getElementById('contactMessage').value
+    type: currentCtaType,
+    privacyAccepted: true,
+    timestamp: new Date().toISOString()
   };
-  
-  console.log('Form data:', data);
-  alert('Success! Form works. Check console for data.');
-  
-  document.getElementById('contactForm').reset();
-  submitBtn.disabled = false;
-  selectContactType(document.querySelector('.contact-type-btn[data-type="analysis"]'));
+
+  submitBtn.textContent = 'SENDING...';
+  submitBtn.disabled = true;
+
+  try {
+    const res = await fetch('https://project-ke2z2.vercel.app/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+
+    if (res.ok) {
+      submitBtn.textContent = '✓ SENT';
+      submitBtn.style.background = 'var(--accent-3)';
+      submitBtn.style.color = '#000';
+      document.getElementById('contactForm').reset();
+      setTimeout(() => {
+        submitBtn.textContent = 'GET FREE ANALYSIS →';
+        submitBtn.style.background = '';
+        submitBtn.style.color = '';
+        submitBtn.disabled = false;
+        selectContactType(document.querySelector('.contact-type-btn[data-type="analysis"]'));
+      }, 2000);
+    } else {
+      submitBtn.textContent = 'ERROR — TRY AGAIN';
+      submitBtn.disabled = false;
+    }
+  } catch (err) {
+    submitBtn.textContent = 'FAILED — TRY AGAIN';
+    submitBtn.disabled = false;
+  }
 }
+
+// Init on load
+document.addEventListener('DOMContentLoaded', () => {
+  selectContactType(document.querySelector('.contact-type-btn[data-type="analysis"]'));
+});
 
 // Init on load
 document.addEventListener('DOMContentLoaded', () => {
