@@ -93,7 +93,7 @@
     @keyframes fadeInUp { from{opacity:0;transform:translate(-50%,20px)} to{opacity:1;transform:translate(-50%,0)} }
 
     .marquee-section { padding:28px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); overflow:hidden; background:#020202; }
-    .marquee-track { display:flex; white-space:nowrap; animation:marquee 28s linear infinite; }
+    .marquee-track { display:flex; white-space:nowrap; will-change:transform; }
     .marquee-item { flex-shrink:0; padding:0 40px; font-family:'Bodoni Moda',serif; font-size:1.06rem; letter-spacing:4px; text-transform:uppercase; color:rgba(255,255,255,.18); }
     .marquee-item .dot { color:rgba(255,255,255,.65); margin:0 18px; }
     @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
@@ -280,7 +280,6 @@
       .loader-brand { font-size:1.25rem; letter-spacing:4px; }
       .loader-line { width:160px; }
       .loader-text { font-size:.58rem; letter-spacing:4px; }
-      .marquee-track { animation-duration:7s; }
       .marquee-item { font-size:.78rem; padding:0 22px; letter-spacing:2px; }
     }
     @media(max-width:768px) {
@@ -389,15 +388,7 @@
   </section>
 
   <div class="marquee-section">
-    <div class="marquee-track">
-      <div class="marquee-item">Content Strategy <span class="dot">◆</span></div>
-      <div class="marquee-item">Brand Identity <span class="dot">◆</span></div>
-      <div class="marquee-item">Subscriber Growth <span class="dot">◆</span></div>
-      <div class="marquee-item">Revenue Strategy<span class="dot">◆</span></div>
-      <div class="marquee-item">Fan Retention <span class="dot">◆</span></div>
-      <div class="marquee-item">Content Quality <span class="dot">◆</span></div>
-      <div class="marquee-item">OnlyFans Income <span class="dot">◆</span></div>
-      <div class="marquee-item">Zero Agency Cuts <span class="dot">◆</span></div>
+    <div class="marquee-track" id="marqueeTrack">
       <div class="marquee-item">Content Strategy <span class="dot">◆</span></div>
       <div class="marquee-item">Brand Identity <span class="dot">◆</span></div>
       <div class="marquee-item">Subscriber Growth <span class="dot">◆</span></div>
@@ -1002,6 +993,32 @@
     document.addEventListener('DOMContentLoaded', () => {
       selectContactType(document.querySelector('.contact-type-btn[data-type="analysis"]'));
     });
+
+    // ── Infinite marquee (no jump, any speed) ──────────────────────
+    (function() {
+      const track = document.getElementById('marqueeTrack');
+      if (!track) return;
+      // Clone items until track is at least 3× viewport wide
+      const fill = () => {
+        while (track.scrollWidth < window.innerWidth * 3) {
+          track.querySelectorAll('.marquee-item').forEach(item => {
+            track.appendChild(item.cloneNode(true));
+          });
+        }
+      };
+      fill();
+      const pxPerSec = window.innerWidth < 768 ? 120 : 80; // px/s — higher = faster
+      let pos = 0, last = null;
+      const halfW = () => track.scrollWidth / 2;
+      const step = ts => {
+        if (last !== null) pos += pxPerSec * (ts - last) / 1000;
+        last = ts;
+        if (pos >= halfW()) pos -= halfW(); // seamless reset at exactly half
+        track.style.transform = `translateX(${-pos}px)`;
+        requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    })();
 
     // Block right-click / context menu on all videos and images
     document.querySelectorAll('video, img').forEach(el => {
