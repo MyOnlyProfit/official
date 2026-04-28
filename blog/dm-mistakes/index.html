@@ -69,6 +69,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;0,6..96,900;1,6..96,400;1,6..96,700&family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&display=swap" rel="stylesheet" />
 
   <style>
+    /* ── CSS VARIABLES ── */
     :root {
       --bg: #f8f7f4; --bg-2: #f0ede8; --bg-3: #e8e4de;
       --text: #111110; --muted: #4a4a46; --soft: #888884;
@@ -122,33 +123,46 @@
     /* ── POST LAYOUT ── */
     .post-layout { max-width: 1200px; margin: 0 auto; padding: 40px 52px 100px; display: grid; grid-template-columns: 1fr 300px; gap: 72px; }
 
-    /* ── ARTICLE ── */
+    /* ── ARTICLE HERO ── */
     .post-hero { padding-bottom: 36px; border-bottom: 1px solid var(--line); margin-bottom: 40px; }
     .post-eyebrow { font-size: .52rem; letter-spacing: 5px; text-transform: uppercase; color: var(--accent); display: inline-block; border: 1px solid rgba(42,92,107,.25); padding: 5px 14px; margin-bottom: 20px; }
     .post-title { font-family: 'Bodoni Moda', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; line-height: 1.1; letter-spacing: -1px; color: var(--text); margin-bottom: 20px; }
     .post-title em { color: var(--accent); font-style: italic; }
     .post-meta-row { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; font-size: .54rem; letter-spacing: 2px; text-transform: uppercase; color: var(--soft); margin-bottom: 24px; }
     .post-meta-sep { width: 1px; height: 12px; background: var(--line-strong); }
+
+    /* ── AUTHOR STRIP ── */
     .author-strip { display: flex; align-items: center; gap: 14px; padding: 16px 20px; background: var(--white); border: 1px solid var(--line); border-left: 3px solid var(--accent); }
-    .author-avatar { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .author-avatar img { width: 100%; height: 100%; object-fit: contain; }
+    .author-avatar {
+      width: 42px; height: 42px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .author-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
     .author-name { font-size: .6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text); font-weight: 600; }
-    .author-role { font-size: .58rem; color: var(--soft); margin-top: 2px; }
+    .author-role { font-family: 'Cormorant Garamond', serif; font-size: .9rem; color: var(--soft); margin-top: 2px; }
 
     /* ── POST CONTENT ── */
-    .post-content { font-size: .9rem; color: var(--muted); }
-    .post-content h2 { font-family: 'Bodoni Moda', serif; font-size: 1.5rem; font-weight: 700; color: var(--text); margin: 44px 0 14px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
-    .post-content h3 { font-family: 'Montserrat', sans-serif; font-size: .72rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin: 28px 0 10px; }
-    .post-content p { margin-bottom: 18px; line-height: 1.85; }
-    .post-content p strong { color: var(--text); font-weight: 600; }
+    .post-content { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: var(--muted); }
+    .post-content h2 { font-family: 'Bodoni Moda', serif; font-size: 1.6rem; font-weight: 700; color: var(--text); margin: 48px 0 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); position: relative; }
+    .post-content h2::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 60px; height: 2px; background: var(--accent); }
+    .post-content h3 { font-family: 'Montserrat', sans-serif; font-size: .75rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin: 32px 0 12px; }
+    .post-content p { margin-bottom: 22px; line-height: 1.85; }
+    .post-content p strong { color: var(--text); font-family: 'Montserrat', sans-serif; font-size: .92rem; font-weight: 600; }
     .post-content ul { list-style: none; margin: 0 0 22px; padding: 0; }
     .post-content ul li { font-size: .88rem; color: var(--muted); padding: 9px 0; border-bottom: 1px solid var(--line); display: flex; gap: 12px; align-items: flex-start; line-height: 1.7; }
-    .post-content ul li::before { content: "—"; color: var(--accent); font-weight: 600; flex-shrink: 0; margin-top: 2px; }
+    .post-content ul li::before { content: "—"; color: var(--accent); font-family: 'Montserrat', sans-serif; font-weight: 600; flex-shrink: 0; margin-top: 2px; }
     .post-content ul li:last-child { border-bottom: none; }
 
     /* ── HIGHLIGHT BOX ── */
-    .hbox { background: var(--bg-2); border-left: 3px solid var(--accent); padding: 22px 26px; margin: 28px 0; font-size: .88rem; line-height: 1.85; color: var(--muted); }
-    .hbox strong { color: var(--text); font-weight: 600; }
+    .hbox { background: var(--bg-2); border-left: 3px solid var(--accent); padding: 22px 26px; margin: 28px 0; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.85; color: var(--muted); }
+    .hbox strong { color: var(--text); font-family: 'Montserrat', sans-serif; font-size: .92rem; font-weight: 600; }
     .hbox.alt { border-left-color: var(--accent-light); background: var(--white); }
 
     /* ── BLOCKQUOTE ── */
@@ -161,7 +175,7 @@
     .cta-box h3 { font-family: 'Bodoni Moda', serif; font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700; color: var(--white); margin-bottom: 12px; }
     .cta-box h3 em { color: var(--accent-light); font-style: italic; }
     .cta-box p { font-size: .85rem; color: rgba(255,255,255,.72); margin-bottom: 28px; max-width: 460px; margin-left: auto; margin-right: auto; line-height: 1.8; }
-    .cta-btn { display: inline-block; background: var(--white); color: var(--accent-3); padding: 14px 38px; font-size: .65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; transition: all .3s; border: 1px solid transparent; }
+    .cta-btn { display: inline-block; background: var(--white); color: var(--accent-3); padding: 14px 38px; font-size: .65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; transition: all .3s; border: 1px solid transparent; font-family: 'Montserrat', sans-serif; }
     .cta-btn:hover { background: transparent; color: var(--white); border-color: rgba(255,255,255,.4); }
 
     /* ── POST NAV ── */
@@ -187,9 +201,8 @@
     .stat-item { background: rgba(255,255,255,.08); padding: 12px 10px; text-align: center; }
     .sv { display: block; font-family: 'Bodoni Moda', serif; font-size: 1.1rem; font-weight: 700; color: var(--white); }
     .sl { display: block; font-size: .48rem; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,.5); margin-top: 3px; }
-    .sidebar-btn { display: block; background: var(--white); color: var(--accent-3); padding: 12px; text-align: center; font-size: .55rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; transition: all .3s; border: 1px solid transparent; }
+    .sidebar-btn { display: block; background: var(--white); color: var(--accent-3); padding: 12px; text-align: center; font-size: .55rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; text-decoration: none; transition: all .3s; border: 1px solid transparent; font-family: 'Montserrat', sans-serif; }
     .sidebar-btn:hover { background: transparent; color: var(--white); border-color: rgba(255,255,255,.4); }
-
     .sidebar-card { background: var(--white); border: 1px solid var(--line); padding: 24px; margin-bottom: 20px; }
     .sc-title { display: block; font-size: .52rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
     .rel-list { list-style: none; }
@@ -237,6 +250,15 @@
 
 <div class="scroll-bar" id="scrollBar"></div>
 
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+  <a href="../../index.html#story">Story</a>
+  <a href="../../index.html#method">Method</a>
+  <a href="../../index.html#results">Results</a>
+  <a href="../index.html">Blog</a>
+  <a href="../../index.html#pricing">Get Empire</a>
+</div>
+
 <!-- NAV -->
 <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
   <a href="../index.html" class="nav-logo">MYONLYPROFIT</a>
@@ -251,15 +273,6 @@
     <span></span><span></span><span></span>
   </button>
 </nav>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
-  <a href="../../index.html#story">Story</a>
-  <a href="../../index.html#method">Method</a>
-  <a href="../../index.html#results">Results</a>
-  <a href="../index.html">Blog</a>
-  <a href="../../index.html#pricing">Get Empire</a>
-</div>
 
 <!-- BREADCRUMB -->
 <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -276,7 +289,7 @@
     <article itemscope itemtype="https://schema.org/Article">
 
       <!-- HERO -->
-      <header class="post-hero">
+      <header class="post-hero reveal">
         <span class="post-eyebrow">DM Strategy</span>
         <h1 class="post-title" itemprop="headline">5 DM Mistakes That Are<br/><em>Killing Your</em> OnlyFans Income</h1>
         <div class="post-meta-row" itemprop="datePublished" content="2026-04-01">
@@ -287,10 +300,12 @@
           <span>Revenue Critical</span>
         </div>
         <div class="author-strip" itemprop="author" itemscope itemtype="https://schema.org/Organization">
-          <div class="author-avatar"><img src="../../images/logo-blog.png" alt="MYONLYPROFIT"></div>
+          <div class="author-avatar">
+            <img src="../../images/logo-blog.png" alt="MYONLYPROFIT Logo" />
+          </div>
           <div>
             <div class="author-name" itemprop="name">MYONLYPROFIT</div>
-            <div class="author-role">Creator Strategy Team</div>
+            <div class="author-role">Creator Strategy · 20+ accounts managed</div>
           </div>
         </div>
       </header>
@@ -298,71 +313,71 @@
       <!-- CONTENT -->
       <div class="post-content" itemprop="articleBody">
 
-        <p>Direct messages are the highest-earning channel on OnlyFans for creators who use them correctly. They're also the most wasted channel for creators who don't. The difference between a €1,500/month account and a €5,000/month account is often not the subscriber count — it's <strong>what happens in the DMs.</strong></p>
+        <p class="reveal">Direct messages are the highest-earning channel on OnlyFans for creators who use them correctly. They're also the most wasted channel for creators who don't. The difference between a €1,500/month account and a €5,000/month account is often not the subscriber count — it's <strong>what happens in the DMs.</strong></p>
 
-        <p>Most creators treat DMs as casual conversation. They're not. They're a controlled conversion environment — the place where passive subscribers become active buyers. Getting this wrong doesn't just limit PPV sales. It limits everything: retention, tipping, custom requests, and long-term subscriber value.</p>
+        <p class="reveal">Most creators treat DMs as casual conversation. They're not. They're a controlled conversion environment — the place where passive subscribers become active buyers. Getting this wrong doesn't just limit PPV sales. It limits everything: retention, tipping, custom requests, and long-term subscriber value.</p>
 
-        <h2>Mistake 1: Generic Opening Messages</h2>
+        <h2 class="reveal">Mistake 1: Generic Opening Messages</h2>
 
-        <p>"Thanks for subscribing!" is not a DM strategy. It's a formality that gets ignored. When a new subscriber joins and receives a message that could have been sent to literally anyone, the opportunity to establish a personal connection — the most valuable thing you can create — is immediately wasted.</p>
+        <p class="reveal">"Thanks for subscribing!" is not a DM strategy. It's a formality that gets ignored. When a new subscriber joins and receives a message that could have been sent to literally anyone, the opportunity to establish a personal connection — the most valuable thing you can create — is immediately wasted.</p>
 
-        <p>A personalized opening that references something specific, asks a real question, and feels like it was written for that person specifically — this is what starts a relationship instead of just acknowledging a transaction. <strong>The opening message is the most important DM you'll ever send to a subscriber.</strong> Don't default it.</p>
+        <p class="reveal">A personalized opening that references something specific, asks a real question, and feels like it was written for that person specifically — this is what starts a relationship instead of just acknowledging a transaction. <strong>The opening message is the most important DM you'll ever send to a subscriber.</strong> Don't default it.</p>
 
-        <div class="hbox">
+        <div class="hbox reveal">
           <strong>The opening message principle:</strong> It should never feel like a broadcast. It should always feel like you noticed them specifically. This distinction — broadcast vs. personal — is what separates DMs that start relationships from DMs that get ignored.
         </div>
 
-        <h3>How to Fix It</h3>
+        <h3 class="reveal">How to Fix It</h3>
 
-        <ul>
+        <ul class="reveal">
           <li>Reference their username or profile if possible</li>
           <li>Ask a specific question that invites a real response</li>
           <li>Make the tone conversational, not transactional</li>
           <li>Avoid copy-paste energy — even if you're using templates, customize them</li>
         </ul>
 
-        <h2>Mistake 2: Pitching Too Early</h2>
+        <h2 class="reveal">Mistake 2: Pitching Too Early</h2>
 
-        <p>The moment a subscriber feels sold to, they disengage. Introducing a PPV offer in the first or second message — before any real interaction has occurred — signals that they're a target, not a person. Resistance goes up immediately and it's very hard to recover.</p>
+        <p class="reveal">The moment a subscriber feels sold to, they disengage. Introducing a PPV offer in the first or second message — before any real interaction has occurred — signals that they're a target, not a person. Resistance goes up immediately and it's very hard to recover.</p>
 
-        <p>Effective DM monetization comes after connection, not before it. The sequence matters: <strong>conversation → curiosity → offer</strong>. Skipping to the offer collapses the conversion rate by as much as 60%. The time investment in building actual interaction before making an ask pays for itself multiple times over.</p>
+        <p class="reveal">Effective DM monetization comes after connection, not before it. The sequence matters: <strong>conversation → curiosity → offer</strong>. Skipping to the offer collapses the conversion rate by as much as 60%. The time investment in building actual interaction before making an ask pays for itself multiple times over.</p>
 
-        <blockquote>"I stopped pitching in the first DM and my PPV conversion rate tripled. Just having one real conversation first changed everything." — creator in our program, now €4.8K/month</blockquote>
+        <blockquote class="reveal">"I stopped pitching in the first DM and my PPV conversion rate tripled. Just having one real conversation first changed everything." — creator in our program, now €4.8K/month</blockquote>
 
-        <h2>Mistake 3: No Follow-Up on Silent Subscribers</h2>
+        <h2 class="reveal">Mistake 3: No Follow-Up on Silent Subscribers</h2>
 
-        <p>Most subscribers — the majority — will never initiate conversation. They subscribed, they browse, they don't message. Waiting for them to start is how most of their value gets left on the table. Inactive subscribers who receive a thoughtful, personalized message often convert to PPV buyers at meaningful rates.</p>
+        <p class="reveal">Most subscribers — the majority — will never initiate conversation. They subscribed, they browse, they don't message. Waiting for them to start is how most of their value gets left on the table. Inactive subscribers who receive a thoughtful, personalized message often convert to PPV buyers at meaningful rates.</p>
 
-        <p>The key is the quality of the re-engagement. A message that feels like it was triggered by a marketing automation (which it often is) gets ignored. A message that feels like you specifically thought of them — references their engagement, their content preferences, something specific — has a real chance of restarting the relationship.</p>
+        <p class="reveal">The key is the quality of the re-engagement. A message that feels like it was triggered by a marketing automation gets ignored. A message that feels like you specifically thought of them — references their engagement, their content preferences, something specific — has a real chance of restarting the relationship.</p>
 
-        <h3>Re-Engagement Message Framework</h3>
+        <h3 class="reveal">Re-Engagement Message Framework</h3>
 
-        <ul>
+        <ul class="reveal">
           <li>Acknowledge their presence: "I noticed you've been enjoying [type of content]"</li>
           <li>Create curiosity: "I have something I think you'd really like"</li>
           <li>Ask permission: "Would you like to see it first?"</li>
           <li>Make it exclusive: "I'm only showing this to a few people"</li>
         </ul>
 
-        <h2>Mistake 4: No Urgency or Structure to Offers</h2>
+        <h2 class="reveal">Mistake 4: No Urgency or Structure to Offers</h2>
 
-        <p>When you do make an offer in DMs, the framing determines whether it converts. An offer with no deadline, no exclusivity, and no sense that anything changes if they don't act is easy to defer indefinitely — and deferred purchases almost never happen.</p>
+        <p class="reveal">When you do make an offer in DMs, the framing determines whether it converts. An offer with no deadline, no exclusivity, and no sense that anything changes if they don't act is easy to defer indefinitely — and deferred purchases almost never happen.</p>
 
-        <p>Adding real time constraints, framing the offer as genuinely limited, and making the action feel easy and immediate — these aren't tricks. They're how human decision-making works. Without them, even interested subscribers procrastinate and eventually forget.</p>
+        <p class="reveal">Adding real time constraints, framing the offer as genuinely limited, and making the action feel easy and immediate — these aren't tricks. They're how human decision-making works. Without them, even interested subscribers procrastinate and eventually forget.</p>
 
-        <div class="hbox alt">
+        <div class="hbox alt reveal">
           <strong>Urgency without pressure:</strong> The goal isn't to create fake scarcity. It's to give subscribers a clear reason to act now rather than later. Real deadlines, actual limited quantities, genuine exclusivity — these work because they're true.
         </div>
 
-        <h2>Mistake 5: Treating All Subscribers the Same</h2>
+        <h2 class="reveal">Mistake 5: Treating All Subscribers the Same</h2>
 
-        <p>Not all subscribers have the same potential value. Some will spend €15 total over their lifetime. Some will spend €500. Treating them identically means under-investing in high-value relationships and wasting time on low-engagement subscribers who will never spend significantly more.</p>
+        <p class="reveal">Not all subscribers have the same potential value. Some will spend €15 total over their lifetime. Some will spend €500. Treating them identically means under-investing in high-value relationships and wasting time on low-engagement subscribers who will never spend significantly more.</p>
 
-        <p>Identifying which subscribers engage consistently, which ones purchase, which ones tip — and then investing disproportionate attention in those relationships — is how income grows without subscriber count growing proportionally. <strong>Depth with high-value subscribers outperforms breadth with average ones.</strong></p>
+        <p class="reveal">Identifying which subscribers engage consistently, which ones purchase, which ones tip — and then investing disproportionate attention in those relationships — is how income grows without subscriber count growing proportionally. <strong>Depth with high-value subscribers outperforms breadth with average ones.</strong></p>
 
-        <h3>Subscriber Segmentation Strategy</h3>
+        <h3 class="reveal">Subscriber Segmentation Strategy</h3>
 
-        <ul>
+        <ul class="reveal">
           <li>Track who purchases PPV within the first week</li>
           <li>Note subscribers who engage frequently in DMs</li>
           <li>Identify tippers and custom request buyers</li>
@@ -370,12 +385,12 @@
           <li>Use automation for low-engagement subscribers</li>
         </ul>
 
-        <div class="hbox">
+        <div class="hbox reveal">
           <strong>DMs are not a support channel. They're a revenue channel.</strong> Creators who understand this earn 2–3× more than those who don't — with the same subscriber count. The difference is entirely in how those conversations are approached and structured.
         </div>
 
         <!-- CTA BOX -->
-        <div class="cta-box">
+        <div class="cta-box reveal">
           <span class="cta-eyebrow">Convert Every Conversation</span>
           <h3>The Complete <em>DM System</em> That Converts</h3>
           <p>The Empire Strategy includes a full DM conversion system — scripts, frameworks, timing strategies, and the psychological triggers that turn passive subscribers into consistent buyers.</p>
@@ -492,7 +507,6 @@
     scrollBar.style.width = max > 0 ? (window.scrollY / max * 100) + '%' : '0%';
     nav.classList.toggle('scrolled', window.scrollY > 60);
   }, { passive: true });
-
   const ham = document.getElementById('hamburger');
   const mm = document.getElementById('mobileMenu');
   ham.addEventListener('click', () => {
@@ -506,7 +520,6 @@
     ham.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   }));
-
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
