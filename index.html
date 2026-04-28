@@ -38,7 +38,7 @@
     .loader-text { margin-top:14px; font-size:.7rem; letter-spacing:6px; text-transform:uppercase; color:var(--soft); }
     @keyframes loadLine { to { width:100%; } }
 
-    .nav { position:fixed; top:0; left:0; right:0; z-index:1000; padding:26px 50px; display:flex; justify-content:space-between; align-items:center; transition:all .45s ease; background:transparent; }
+    .nav { position:fixed; top:0; left:0; right:0; z-index:1000; padding:26px 50px; display:flex; justify-content:space-between; align-items:center; transition:all .45s ease; background:transparent; overflow:hidden; }
     .nav.scrolled { padding:15px 50px; background:rgba(0,0,0,.82); backdrop-filter:blur(20px); border-bottom:1px solid var(--line); }
     .nav-logo { text-decoration:none; color:#fff; font-family:'Bodoni Moda',serif; font-size:1.45rem; font-weight:700; letter-spacing:4px; text-transform:uppercase; }
     .nav-logo span { color:var(--accent-3); }
@@ -189,7 +189,7 @@
 
     /* ─── PRICE CARD LOGO ─── */
     .price-card-logo-wrap { display:flex; justify-content:center; margin-bottom:28px; }
-    .price-card-logo { height:36px; width:auto; opacity:.7; display:block; pointer-events:none; -webkit-user-drag:none; }
+    .price-card-logo { height:52px; width:auto; opacity:.7; display:block; pointer-events:none; -webkit-user-drag:none; }
 
     /* ─── PREVIEW LINK ─── */
     .preview-link-wrap { display:flex; justify-content:center; margin-top:14px; }
@@ -278,14 +278,19 @@
       .editorial+.editorial { margin-top:-20px; }
       .editorial-number { margin-bottom:-8px; }
       .section { padding:60px 20px !important; }
-      .nav { padding:20px; }
-      .nav.scrolled { padding:12px 20px; }
+      .nav { padding:18px 16px; overflow:visible; }
+      .nav.scrolled { padding:12px 16px; }
+      .nav-logo { font-size:1.1rem; letter-spacing:2px; flex:1; min-width:0; }
       .nav-links { display:none; }
-      .nav-menu-btn { display:block; }
+      .nav-menu-btn { display:block; flex-shrink:0; padding:4px; }
       .hero::after { inset:14px; }
-      .hero h1 { font-size:3rem; }
-      .hero-sub { font-size:1.2rem; }
-      .section-title { font-size:2.45rem; }
+      .hero h1 { font-size:2.5rem; letter-spacing:-1px; word-break:break-word; }
+      .hero-sub { font-size:1.1rem; }
+      .section-title { font-size:2rem; word-break:break-word; }
+      .editorial-heading { font-size:1.9rem; word-break:break-word; }
+      .pull-quote-text { font-size:1.65rem; word-break:break-word; }
+      .price-name { font-size:1.5rem; }
+      .price-amount { font-size:2.4rem; }
       .features-grid,.pricing-grid { grid-template-columns:1fr; }
       .stats-grid { grid-template-columns:repeat(2,1fr); gap:24px; }
       .stat-item { border-left:none; }
@@ -293,7 +298,6 @@
       .testimonial-quote { left:24px; top:16px; font-size:4rem; }
       .testimonial-text { font-size:1.34rem; }
       .editorial-number { font-size:5rem; }
-      .pull-quote-text { font-size:2rem; }
       .editorial,.features-grid,.pricing-section,.contact-section,.testimonials,.pull-quote,.footer { padding-left:20px; padding-right:20px; }
       .footer-top { grid-template-columns:1fr; gap:34px; }
       .footer-bottom { flex-direction:column; text-align:center; }
@@ -598,8 +602,11 @@
 
     <div class="pricing-grid">
 
-      <!-- Dynasty — no logo, no preview link -->
+      <!-- Dynasty — logo added -->
       <div class="price-card reveal" style="transition-delay:.05s;">
+        <div class="price-card-logo-wrap">
+          <img src="https://project-ke2z2.vercel.app/images/logo.png" alt="MYONLYPROFIT" class="price-card-logo" />
+        </div>
         <p class="price-tier">Starter</p>
         <h3 class="price-name">Dynasty</h3>
         <div class="price-amount">€49 <span>/ one-time</span></div>
@@ -770,9 +777,9 @@
     <div class="footer-bottom">
       <p class="footer-copy">© 2026 MYONLYPROFIT. ALL RIGHTS RESERVED.</p>
       <div class="footer-socials">
-        <a href="#">Instagram</a>
-        <a href="#">X / Twitter</a>
-        <a href="#">TikTok</a>
+        <a href="https://www.instagram.com/myonlyprofit/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://x.com/myonlyprofit" target="_blank" rel="noopener noreferrer">X / Twitter</a>
+        <a href="https://www.tiktok.com/@myonlyprofit" target="_blank" rel="noopener noreferrer">TikTok</a>
       </div>
     </div>
   </footer>
