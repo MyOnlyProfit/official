@@ -769,29 +769,6 @@
     </p>
   </div>
 </div>
-
-<script>
-document.getElementById("newsletterForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const email = e.target.email.value;
-
-  const res = await fetch("/api/subscribe", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ email })
-  });
-
-  if (res.ok) {
-    alert("You're in.");
-    e.target.reset();
-  } else {
-    alert("Something went wrong.");
-  }
-});
-</script>
  
   <!-- SIDEBAR -->
   <aside class="sidebar">
@@ -964,6 +941,27 @@ document.getElementById("newsletterForm").addEventListener("submit", async (e) =
       if (t) { e.preventDefault(); window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' }); }
     });
   });
+
+  document.getElementById("newsletterForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const email = e.target.email.value;
+
+  const res = await fetch("/api/subscribe", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email })
+  });
+
+  if (res.ok) {
+    alert("You're in.");
+    e.target.reset();
+  } else {
+    alert("Something went wrong.");
+  }
+});
 </script>
 </body>
 </html>
