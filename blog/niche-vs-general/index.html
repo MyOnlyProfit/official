@@ -129,26 +129,38 @@
     .post-title em { color: var(--accent); font-style: italic; }
     .post-meta-row { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; font-size: .54rem; letter-spacing: 2px; text-transform: uppercase; color: var(--soft); margin-bottom: 24px; }
     .post-meta-sep { width: 1px; height: 12px; background: var(--line-strong); }
-    .author-strip { display: flex; align-items: center; gap: 14px; padding: 16px 20px; background: var(--white); border: 1px solid var(--line); border-left: 3px solid var(--accent); }
-    .author-avatar { width: 42px; height: 42px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .author-avatar img { width: 100%; height: 100%; object-fit: contain; }
-    .author-name { font-size: .6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text); font-weight: 600; }
-    .author-role { font-size: .58rem; color: var(--soft); margin-top: 2px; }
 
-    /* ── POST CONTENT ── */
-    .post-content { font-size: .9rem; color: var(--muted); }
-    .post-content h2 { font-family: 'Bodoni Moda', serif; font-size: 1.5rem; font-weight: 700; color: var(--text); margin: 44px 0 14px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
-    .post-content h3 { font-family: 'Montserrat', sans-serif; font-size: .72rem; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin: 28px 0 10px; }
-    .post-content p { margin-bottom: 18px; line-height: 1.85; }
-    .post-content p strong { color: var(--text); font-weight: 600; }
+    .author-strip { display: flex; align-items: center; gap: 14px; padding: 16px 20px; background: var(--white); border: 1px solid var(--line); border-left: 3px solid var(--accent); }
+    .author-avatar {
+      width: 42px; height: 42px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .author-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .author-name { font-size: .6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text); font-weight: 600; }
+    .author-role { font-family: 'Cormorant Garamond', serif; font-size: .9rem; color: var(--soft); margin-top: 2px; }
+
+    /* ── POST CONTENT (MATCH “FIRST PAGE”) ── */
+    .post-content { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: var(--muted); }
+    .post-content h2 { font-family: 'Bodoni Moda', serif; font-size: 1.6rem; font-weight: 700; color: var(--text); margin: 48px 0 16px; padding-bottom: 12px; border-bottom: 1px solid var(--line); position: relative; }
+    .post-content h2::after { content: ''; position: absolute; bottom: -1px; left: 0; width: 60px; height: 2px; background: var(--accent); }
+    .post-content h3 { font-family: 'Montserrat', sans-serif; font-size: .75rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); margin: 32px 0 12px; }
+    .post-content p { margin-bottom: 22px; line-height: 1.85; }
+    .post-content p strong { color: var(--text); font-family: 'Montserrat', sans-serif; font-size: .92rem; font-weight: 600; }
     .post-content ul { list-style: none; margin: 0 0 22px; padding: 0; }
     .post-content ul li { font-size: .88rem; color: var(--muted); padding: 9px 0; border-bottom: 1px solid var(--line); display: flex; gap: 12px; align-items: flex-start; line-height: 1.7; }
-    .post-content ul li::before { content: "—"; color: var(--accent); font-weight: 600; flex-shrink: 0; margin-top: 2px; }
+    .post-content ul li::before { content: "—"; color: var(--accent); font-family: 'Montserrat', sans-serif; font-weight: 600; flex-shrink: 0; margin-top: 2px; }
     .post-content ul li:last-child { border-bottom: none; }
 
     /* ── HIGHLIGHT BOX ── */
-    .hbox { background: var(--bg-2); border-left: 3px solid var(--accent); padding: 22px 26px; margin: 28px 0; font-size: .88rem; line-height: 1.85; color: var(--muted); }
-    .hbox strong { color: var(--text); font-weight: 600; }
+    .hbox { background: var(--bg-2); border-left: 3px solid var(--accent); padding: 22px 26px; margin: 28px 0; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; line-height: 1.85; color: var(--muted); }
+    .hbox strong { color: var(--text); font-family: 'Montserrat', sans-serif; font-size: .92rem; font-weight: 600; }
     .hbox.alt { border-left-color: var(--accent-light); background: var(--white); }
 
     /* ── BLOCKQUOTE ── */
@@ -237,6 +249,15 @@
 
 <div class="scroll-bar" id="scrollBar"></div>
 
+<!-- MOBILE MENU (same placement as your “first” page) -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+  <a href="../../index.html#story">Story</a>
+  <a href="../../index.html#method">Method</a>
+  <a href="../../index.html#results">Results</a>
+  <a href="../index.html">Blog</a>
+  <a href="../../index.html#pricing">Get Empire</a>
+</div>
+
 <!-- NAV -->
 <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
   <a href="../index.html" class="nav-logo">MYONLYPROFIT</a>
@@ -251,15 +272,6 @@
     <span></span><span></span><span></span>
   </button>
 </nav>
-
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
-  <a href="../../index.html#story">Story</a>
-  <a href="../../index.html#method">Method</a>
-  <a href="../../index.html#results">Results</a>
-  <a href="../index.html">Blog</a>
-  <a href="../../index.html#pricing">Get Empire</a>
-</div>
 
 <!-- BREADCRUMB -->
 <nav class="breadcrumb" aria-label="Breadcrumb">
@@ -276,7 +288,7 @@
     <article itemscope itemtype="https://schema.org/Article">
 
       <!-- HERO -->
-      <header class="post-hero">
+      <header class="post-hero reveal">
         <span class="post-eyebrow">Positioning Strategy</span>
         <h1 class="post-title" itemprop="headline">Niche vs General:<br/><em>What Actually Converts</em><br/>on OnlyFans</h1>
         <div class="post-meta-row" itemprop="datePublished" content="2026-04-01">
@@ -287,7 +299,9 @@
           <span>Brand Strategy</span>
         </div>
         <div class="author-strip" itemprop="author" itemscope itemtype="https://schema.org/Organization">
-          <div class="author-avatar"><img src="../../images/logo-blog.png" alt="MYONLYPROFIT"></div>
+          <div class="author-avatar">
+            <img src="../../images/logo-blog.png" alt="MYONLYPROFIT Logo">
+          </div>
           <div>
             <div class="author-name" itemprop="name">MYONLYPROFIT</div>
             <div class="author-role">Creator Strategy Team</div>
@@ -298,27 +312,27 @@
       <!-- CONTENT -->
       <div class="post-content" itemprop="articleBody">
 
-        <p>The instinct when starting out is to stay broad. Appeal to everyone. Don't limit your potential audience by being too specific. This feels like smart positioning. It is, in practice, the fastest path to being forgettable in a sea of generic profiles.</p>
+        <p class="reveal">The instinct when starting out is to stay broad. Appeal to everyone. Don't limit your potential audience by being too specific. This feels like smart positioning. It is, in practice, the fastest path to being forgettable in a sea of generic profiles.</p>
 
-        <p><strong>General profiles compete on looks alone.</strong> Looks are abundant on the platform. Niche profiles compete on specificity — and specificity is rare. That distinction shapes everything: traffic quality, conversion rates, subscriber loyalty, and how much subscribers spend.</p>
+        <p class="reveal"><strong>General profiles compete on looks alone.</strong> Looks are abundant on the platform. Niche profiles compete on specificity — and specificity is rare. That distinction shapes everything: traffic quality, conversion rates, subscriber loyalty, and how much subscribers spend.</p>
 
-        <h2>Why General Profiles Stall</h2>
+        <h2 class="reveal">Why General Profiles Stall</h2>
 
-        <p>When someone lands on a profile that isn't clearly about anything specific, they're not sure what they're subscribing to. They don't know what to expect. That uncertainty is friction — and friction kills conversion. Without a clear answer to "why should I subscribe to this instead of any of the other hundred options?" people leave.</p>
+        <p class="reveal">When someone lands on a profile that isn't clearly about anything specific, they're not sure what they're subscribing to. They don't know what to expect. That uncertainty is friction — and friction kills conversion. Without a clear answer to "why should I subscribe to this instead of any of the other hundred options?" people leave.</p>
 
-        <p>General profiles also struggle with traffic. On platforms like TikTok and Reddit, content that isn't targeted at a specific community performs worse because it doesn't belong anywhere specific. Niche content can be placed exactly where the right audience already is.</p>
+        <p class="reveal">General profiles also struggle with traffic. On platforms like TikTok and Reddit, content that isn't targeted at a specific community performs worse because it doesn't belong anywhere specific. Niche content can be placed exactly where the right audience already is.</p>
 
-        <div class="hbox">
+        <div class="hbox reveal">
           <strong>Specificity reduces comparison.</strong> When your profile is clearly about something, subscribers aren't evaluating you against every other creator. They're evaluating you as a specific type of experience. That's a far smaller competitive field — and one you can actually win in.
         </div>
 
-        <h2>What "Niche" Actually Means</h2>
+        <h2 class="reveal">What "Niche" Actually Means</h2>
 
-        <p>Niche doesn't mean limiting yourself to one type of content forever. It means having a clear identity — a recognizable combination of personality, aesthetic, and energy that subscribers understand immediately and can form expectations around. Those expectations drive loyalty.</p>
+        <p class="reveal">Niche doesn't mean limiting yourself to one type of content forever. It means having a clear identity — a recognizable combination of personality, aesthetic, and energy that subscribers understand immediately and can form expectations around. Those expectations drive loyalty.</p>
 
-        <h3>Examples of Strong Niche Identities</h3>
+        <h3 class="reveal">Examples of Strong Niche Identities</h3>
 
-        <ul>
+        <ul class="reveal">
           <li>A fitness-focused creator with specific training content</li>
           <li>An e-girl aesthetic with consistent styling and tone</li>
           <li>A dominant-energy creator with clear personality positioning</li>
@@ -327,31 +341,31 @@
           <li>A specific lifestyle or luxury positioning</li>
         </ul>
 
-        <p>These aren't rigid restrictions — they're <strong>identity anchors</strong> that give subscribers a reason to choose you specifically and stay.</p>
+        <p class="reveal">These aren't rigid restrictions — they're <strong>identity anchors</strong> that give subscribers a reason to choose you specifically and stay.</p>
 
-        <h2>Niche and Traffic Quality</h2>
+        <h2 class="reveal">Niche and Traffic Quality</h2>
 
-        <p>Targeted traffic converts dramatically better than general traffic. 1,000 views from an audience that specifically wants what you offer will generate more subscribers than 10,000 general views from people who might or might not care. This is why niche Reddit communities can drive higher subscriber conversion than broadly viral TikTok content.</p>
+        <p class="reveal">Targeted traffic converts dramatically better than general traffic. 1,000 views from an audience that specifically wants what you offer will generate more subscribers than 10,000 general views from people who might or might not care. This is why niche Reddit communities can drive higher subscriber conversion than broadly viral TikTok content.</p>
 
-        <p>The goal on traffic channels isn't maximum reach — it's <strong>maximum relevance.</strong> A smaller, more targeted audience that actually wants your specific content converts at higher rates, spends more per subscriber, and retains for longer.</p>
+        <p class="reveal">The goal on traffic channels isn't maximum reach — it's <strong>maximum relevance.</strong> A smaller, more targeted audience that actually wants your specific content converts at higher rates, spends more per subscriber, and retains for longer.</p>
 
-        <blockquote>"I went from general content getting 50K views with 3 subs to niche content getting 8K views with 12 subs. The math changed completely." — creator in our program, now €4.1K/month</blockquote>
+        <blockquote class="reveal">"I went from general content getting 50K views with 3 subs to niche content getting 8K views with 12 subs. The math changed completely." — creator in our program, now €4.1K/month</blockquote>
 
-        <h2>The Consistency Problem</h2>
+        <h2 class="reveal">The Consistency Problem</h2>
 
-        <p>The biggest failure mode for niche profiles isn't the wrong niche — it's inconsistency. When the identity shifts without reason, when tone changes unpredictably, when the aesthetic drifts — subscribers lose their reference point. They subscribed for a specific experience and they're no longer getting it.</p>
+        <p class="reveal">The biggest failure mode for niche profiles isn't the wrong niche — it's inconsistency. When the identity shifts without reason, when tone changes unpredictably, when the aesthetic drifts — subscribers lose their reference point. They subscribed for a specific experience and they're no longer getting it.</p>
 
-        <p>Niche without consistency is just confusion with extra steps. The power of a clear identity comes from <strong>repetition over time</strong> — subscribers building familiarity, forming expectations, and returning because those expectations are reliably met.</p>
+        <p class="reveal">Niche without consistency is just confusion with extra steps. The power of a clear identity comes from <strong>repetition over time</strong> — subscribers building familiarity, forming expectations, and returning because those expectations are reliably met.</p>
 
-        <h2>Can You Evolve Your Niche?</h2>
+        <h2 class="reveal">Can You Evolve Your Niche?</h2>
 
-        <p>Yes — but gradually, not suddenly. The audience you've built is invested in the identity they came for. Incremental evolution, where changes are introduced slowly and with continuity to what came before, allows the brand to grow without breaking the trust that drives retention.</p>
+        <p class="reveal">Yes — but gradually, not suddenly. The audience you've built is invested in the identity they came for. Incremental evolution, where changes are introduced slowly and with continuity to what came before, allows the brand to grow without breaking the trust that drives retention.</p>
 
-        <p>Sudden pivots — completely different content, changed tone, new aesthetic — typically result in subscriber churn. The safest approach: evolve the execution while maintaining the core identity. Deepen and refine what's already working rather than abandoning it.</p>
+        <p class="reveal">Sudden pivots — completely different content, changed tone, new aesthetic — typically result in subscriber churn. The safest approach: evolve the execution while maintaining the core identity. Deepen and refine what's already working rather than abandoning it.</p>
 
-        <h3>How to Test a New Niche Direction</h3>
+        <h3 class="reveal">How to Test a New Niche Direction</h3>
 
-        <ul>
+        <ul class="reveal">
           <li>Introduce new elements gradually alongside existing content</li>
           <li>Poll your audience to gauge interest before full pivot</li>
           <li>Test on a free page before changing your paid page</li>
@@ -359,12 +373,12 @@
           <li>Keep core identity elements while exploring new formats</li>
         </ul>
 
-        <div class="hbox alt">
+        <div class="hbox alt reveal">
           <strong>General = invisible. Specific = memorable.</strong> On a platform with millions of creators, the ones who earn consistently are the ones who stand for something specific. Not the most talented. Not the most attractive. The most clearly defined.
         </div>
 
         <!-- CTA BOX -->
-        <div class="cta-box">
+        <div class="cta-box reveal">
           <span class="cta-eyebrow">Define Your Position</span>
           <h3>Clarity Converts. <em>Vagueness Doesn't.</em></h3>
           <p>The Empire Strategy covers full positioning strategy — how to identify your niche, build your brand identity, and use it as the foundation for every other system.</p>
@@ -475,6 +489,7 @@
 <script>
   const scrollBar = document.getElementById('scrollBar');
   const nav = document.getElementById('mainNav');
+
   window.addEventListener('scroll', () => {
     const doc = document.documentElement;
     const max = doc.scrollHeight - doc.clientHeight;
@@ -484,14 +499,17 @@
 
   const ham = document.getElementById('hamburger');
   const mm = document.getElementById('mobileMenu');
+
   ham.addEventListener('click', () => {
     const isOpen = mm.classList.toggle('open');
     ham.classList.toggle('open', isOpen);
     ham.setAttribute('aria-expanded', isOpen);
     document.body.style.overflow = isOpen ? 'hidden' : '';
   });
+
   mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    ham.classList.remove('open'); mm.classList.remove('open');
+    ham.classList.remove('open');
+    mm.classList.remove('open');
     ham.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
   }));
@@ -499,6 +517,7 @@
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 </script>
 </body>
