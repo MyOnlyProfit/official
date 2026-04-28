@@ -918,20 +918,6 @@
     if (btn) filterPosts(btn, cat);
   }
  
-  // ── Newsletter ──
-  document.querySelector('.nl-submit').addEventListener('click', function() {
-    const input = document.querySelector('.nl-input');
-    if (input.value && input.value.includes('@')) {
-      this.textContent = '✓ Subscribed';
-      this.style.background = '#2a5c6b';
-      input.value = '';
-      setTimeout(() => { this.textContent = 'Subscribe →'; this.style.background = ''; }, 2500);
-    } else {
-      input.style.borderColor = '#c87e7e';
-      setTimeout(() => input.style.borderColor = '', 1500);
-    }
-  });
- 
   // ── Smooth anchors ──
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
