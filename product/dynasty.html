@@ -14,7 +14,8 @@
     }
     @media print { body { display: none !important; } }
     * { -webkit-user-select: none; -moz-user-select: none; user-select: none; margin: 0; padding: 0; box-sizing: border-box; }
-    input, textarea { -webkit-user-select: text; user-select: text; }
+    input[type="checkbox"] { -webkit-user-select: none; user-select: none; }
+    input:not([type="checkbox"]), textarea { -webkit-user-select: text; user-select: text; }
     img { -webkit-user-drag: none; pointer-events: none; }
     html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--accent) #000; }
     ::-webkit-scrollbar { width: 5px; }
@@ -60,9 +61,46 @@
     .hero-title span { color: var(--accent-3); font-style: italic; }
     .hero-sub-label { font-size: .58rem; letter-spacing: 6px; text-transform: uppercase; color: var(--soft); display: block; margin-bottom: 32px; }
     .hero-tagline { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.1rem, 2.5vw, 1.38rem); color: var(--muted); max-width: 640px; line-height: 1.78; margin-bottom: 44px; }
-    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 52px; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-bottom: 44px; }
     .badge { border: 1px solid var(--line-strong); color: var(--muted); padding: 10px 22px; font-size: .56rem; letter-spacing: 3px; text-transform: uppercase; transition: all .35s ease; cursor: pointer; }
     .badge:hover { border-color: var(--accent-3); color: var(--accent-3); }
+    /* ── CTA BLOCK ── */
+    .hero-cta-block { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 480px; margin-bottom: 44px; }
+    .delivery-label { display: flex; align-items: center; gap: 10px; width: 100%; margin-bottom: 16px; }
+    .delivery-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(155,184,198,.2)); }
+    .delivery-line.r { background: linear-gradient(90deg, rgba(155,184,198,.2), transparent); }
+    .delivery-text { font-family: 'Montserrat', sans-serif; font-size: .48rem; letter-spacing: 4px; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+    .hero-get-btn {
+      width: 100%; padding: 20px 40px;
+      background: transparent; border: 1px solid var(--accent-3);
+      color: var(--accent-3); font-family: 'Bodoni Moda', serif;
+      font-size: 1rem; font-weight: 700; letter-spacing: 6px;
+      text-transform: uppercase; cursor: pointer;
+      position: relative; overflow: hidden;
+      transition: color .35s ease, opacity .35s ease;
+      margin-bottom: 18px;
+    }
+    .hero-get-btn .btn-bg {
+      position: absolute; inset: 0;
+      background: var(--accent-3);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .4s ease; z-index: 0;
+    }
+    .hero-get-btn .btn-text { position: relative; z-index: 1; }
+    .hero-get-btn.locked { opacity: .35; cursor: not-allowed; }
+    .hero-get-btn:not(.locked):hover .btn-bg { transform: scaleX(1); }
+    .hero-get-btn:not(.locked):hover .btn-text { color: #000; }
+    .hero-get-btn:not(.locked):hover { color: #000; }
+    .terms-row { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; width: 100%; }
+    .custom-checkbox { position: relative; flex-shrink: 0; width: 16px; height: 16px; margin-top: 1px; }
+    .custom-checkbox input { appearance: none; -webkit-appearance: none; width: 16px; height: 16px; border: 1px solid var(--soft); background: transparent; cursor: pointer; display: block; transition: all .25s ease; }
+    .custom-checkbox input:checked { background: var(--accent-3); border-color: var(--accent-3); }
+    .custom-checkbox svg { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) scale(0); width: 10px; height: 8px; pointer-events: none; transition: transform .18s ease; }
+    .custom-checkbox input:checked + svg { transform: translate(-50%,-50%) scale(1); }
+    .terms-text { font-family: 'Montserrat', sans-serif; font-size: .54rem; letter-spacing: 2px; color: var(--soft); line-height: 1.7; text-transform: uppercase; text-align: left; }
+    .terms-text a { color: var(--accent-3); text-decoration: none; border-bottom: 1px solid rgba(219,231,237,.25); transition: border-color .25s; }
+    .terms-text a:hover { border-color: var(--accent-3); }
+    /* ── SCROLL HINT ── */
     .scroll-hint { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; z-index: 2; pointer-events: none; }
     .scroll-hint span { font-size: .5rem; letter-spacing: 4px; text-transform: uppercase; color: var(--soft); white-space: nowrap; }
     .scroll-arrow { width: 1px; height: 44px; background: linear-gradient(180deg, var(--accent), transparent); animation: scrollPulse 2s ease-in-out infinite; }
@@ -105,9 +143,22 @@
     .footer-links { display: flex; gap: 28px; }
     .footer-links a { color: var(--soft); text-decoration: none; font-size: .6rem; letter-spacing: 2px; text-transform: uppercase; transition: color .3s ease; }
     .footer-links a:hover { color: #fff; }
-    @media(max-width:900px) { .nav { padding: 14px 20px; } .nav.scrolled { padding: 11px 20px; } .nav-links { display: none; } .nav-hamburger { display: flex; } }
-    @media(max-width:600px) { .page-footer { flex-direction: column; align-items: flex-end; } .nav { padding: 12px 16px; } .nav.scrolled { padding: 10px 16px; } .nav-logo { font-size: .9rem; letter-spacing: 2px; } }
-    @media(max-width:480px) { .hero-title { font-size: clamp(2.6rem, 13vw, 3.8rem); letter-spacing: 6px; } .nav { padding: 10px 14px; } .nav.scrolled { padding: 8px 14px; } .nav-logo { font-size: .82rem; letter-spacing: 1px; } }
+    @media(max-width:900px) {
+      .nav { padding: 14px 20px; } .nav.scrolled { padding: 11px 20px; }
+      .nav-links { display: none; } .nav-hamburger { display: flex; }
+      .hero-cta-block { padding: 0 8px; }
+    }
+    @media(max-width:600px) {
+      .page-footer { flex-direction: column; align-items: flex-end; }
+      .nav { padding: 12px 16px; } .nav.scrolled { padding: 10px 16px; }
+      .nav-logo { font-size: .9rem; letter-spacing: 2px; }
+      .hero-get-btn { font-size: .82rem; letter-spacing: 4px; padding: 18px 24px; }
+    }
+    @media(max-width:480px) {
+      .hero-title { font-size: clamp(2.6rem, 13vw, 3.8rem); letter-spacing: 6px; }
+      .nav { padding: 10px 14px; } .nav.scrolled { padding: 8px 14px; }
+      .nav-logo { font-size: .82rem; letter-spacing: 1px; }
+    }
   </style>
 </head>
 <body>
@@ -149,6 +200,40 @@
     <div class="badge">✦ 50 Content Ideas</div>
     <div class="badge">✦ Pricing Quick-Guide</div>
   </div>
+
+  <!-- ── CTA BLOCK ── -->
+  <div class="hero-cta-block">
+
+    <!-- Instant delivery label -->
+    <div class="delivery-label">
+      <div class="delivery-line"></div>
+      <span class="delivery-text">✦ Instant Delivery to Your Email ✦</span>
+      <div class="delivery-line r"></div>
+    </div>
+
+    <!-- CTA Button -->
+    <button class="hero-get-btn locked" id="heroCtaBtn" onclick="handleHeroCta()">
+      <div class="btn-bg"></div>
+      <span class="btn-text">Get the Strategy →</span>
+    </button>
+
+    <!-- Terms checkbox -->
+    <label class="terms-row" for="acceptTerms">
+      <div class="custom-checkbox">
+        <input type="checkbox" id="acceptTerms" onchange="toggleCta(this)" />
+        <svg viewBox="0 0 12 10" fill="none">
+          <polyline points="1,5 4,8 11,1" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="terms-text">
+        I accept the
+        <a href="../terms.html" target="_blank" onclick="event.stopPropagation()">Terms &amp; Conditions</a>
+      </span>
+    </label>
+
+  </div>
+  <!-- ── END CTA BLOCK ── -->
+
   <div class="scroll-hint">
     <span>Scroll to begin</span>
     <div class="scroll-arrow"></div>
@@ -256,6 +341,23 @@ function mobileNav(id) {
     if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 120, behavior: 'smooth' });
   }, 100);
 }
+
+// ── CTA toggle ──
+function toggleCta(cb) {
+  const btn = document.getElementById('heroCtaBtn');
+  if (cb.checked) {
+    btn.classList.remove('locked');
+  } else {
+    btn.classList.add('locked');
+  }
+}
+
+function handleHeroCta() {
+  if (document.getElementById('heroCtaBtn').classList.contains('locked')) return;
+  window.location.href = 'https://myonlyprofit.com/index.html#pricing';
+}
+
+// ── Nav / progress ──
 const nav = document.getElementById('mainNav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 60);
@@ -266,6 +368,7 @@ window.addEventListener('scroll', () => {
   ['sec-hero','sec-intro'].forEach(id => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top <= 180) active = id; });
   dots.forEach((d, i) => d.classList.toggle('active', ['sec-hero','sec-intro'][i] === active));
 }, { passive: true });
+
 const cards = document.querySelectorAll('.page-card');
 const observer = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.06 });
 cards.forEach(c => observer.observe(c));
