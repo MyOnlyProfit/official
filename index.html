@@ -306,7 +306,7 @@
       .stat-item:nth-child(2n) { border-left:1px solid rgba(255,255,255,.05); }
       .stat-item:nth-child(2n+1) { border-left:none; }
       .stat-item:nth-child(3), .stat-item:nth-child(4) { border-bottom:none; }
-      .stat-number { font-size:2.6rem; }
+      .stat-number { font-size:2.3rem; white-space:nowrap; overflow:hidden; }
       .stat-label { font-size:.6rem; letter-spacing:2px; }
       .testimonial-card { padding:42px 28px; }
       .testimonial-quote { left:24px; top:16px; font-size:4rem; }
@@ -480,7 +480,7 @@
   <div class="stats-bar" id="results">
     <div class="stats-grid">
       <div class="stat-item reveal" style="transition-delay:.1s;">
-        <div class="stat-number" data-count="20" data-suffix="+">20+</div>
+        <div class="stat-number" id="statCreators">20<sup style="font-size:60%;vertical-align:super;font-family:inherit;">+</sup></div>
         <div class="stat-label">Creators Launched</div>
       </div>
       <div class="stat-item reveal" style="transition-delay:.2s;">
@@ -828,7 +828,31 @@
     }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
     revealEls.forEach(el => revealObserver.observe(el));
 
-    const counters = document.querySelectorAll('.stat-number');
+    // Creators counter with + superscript
+    const creatorsEl = document.getElementById('statCreators');
+    if (creatorsEl) {
+      const creatorsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !creatorsEl.dataset.animated) {
+            creatorsEl.dataset.animated = 'true';
+            const duration = 1900;
+            const start = performance.now();
+            function tick(now) {
+              const p = Math.min((now - start) / duration, 1);
+              const eased = 1 - Math.pow(1 - p, 3);
+              const val = Math.floor(eased * 20);
+              creatorsEl.innerHTML = val + '<sup style="font-size:60%;vertical-align:super;font-family:inherit;">+</sup>';
+              if (p < 1) requestAnimationFrame(tick);
+              else creatorsEl.innerHTML = '20<sup style="font-size:60%;vertical-align:super;font-family:inherit;">+</sup>';
+            }
+            requestAnimationFrame(tick);
+          }
+        });
+      }, { threshold: 0.3 });
+      creatorsObserver.observe(creatorsEl);
+    }
+
+    const counters = document.querySelectorAll('.stat-number:not(#statCreators)');
     const counterObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting && !entry.target.dataset.animated) {
