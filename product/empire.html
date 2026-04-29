@@ -145,7 +145,8 @@ strong { color: var(--text); }
 .terms-modal-bar { position: absolute; top: 0; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-3), transparent); }
 .terms-modal-title { font-family: 'Bodoni Moda', serif; font-size: 1.1rem; letter-spacing: 4px; text-transform: uppercase; color: #fff; margin-bottom: 8px; text-align: center; }
 .terms-modal-sub { font-size: 10px; letter-spacing: 2px; color: var(--soft); text-align: center; margin-bottom: 28px; text-transform: uppercase; font-family: 'Montserrat', sans-serif; }
-.terms-modal-row { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; margin-bottom: 28px; }
+.terms-modal-row { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; margin-bottom: 20px; }
+.terms-divider { width: 100%; height: 1px; background: var(--line); margin-bottom: 20px; }
 .terms-modal-confirm { width: 100%; padding: 18px 24px; background: #fff; border: 1px solid #fff; color: #000; font-family: 'Bodoni Moda', serif; font-size: .9rem; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; cursor: pointer; transition: background .25s ease, border-color .25s ease; margin-bottom: 0; }
 .terms-modal-confirm:hover:not(:disabled) { background: var(--accent-3); border-color: var(--accent-3); }
 .terms-modal-confirm:disabled { opacity: .35; cursor: not-allowed; }
@@ -242,9 +243,11 @@ strong { color: var(--text); }
     <div class="terms-modal-bar"></div>
     <div class="terms-modal-title">One Last Step</div>
     <div class="terms-modal-sub">Accept the terms to continue. Your password will be sent instantly to your email, giving you access to the Empire system on our website.</div>
+
+    <!-- Checkbox 1: Terms & Conditions -->
     <label class="terms-modal-row" for="modalTermsCheck">
       <div class="custom-checkbox">
-        <input type="checkbox" id="modalTermsCheck" onchange="toggleModalCta(this)" />
+        <input type="checkbox" id="modalTermsCheck" onchange="toggleModalCta()" />
         <svg viewBox="0 0 12 10" fill="none">
           <polyline points="1,5 4,8 11,1" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
@@ -254,6 +257,22 @@ strong { color: var(--text); }
         <a href="../terms.html" target="_blank" onclick="event.stopPropagation()">Terms &amp; Conditions</a>
       </span>
     </label>
+
+    <div class="terms-divider"></div>
+
+    <!-- Checkbox 2: Digital Content / Withdrawal Waiver -->
+    <label class="terms-modal-row" for="modalDigitalCheck">
+      <div class="custom-checkbox">
+        <input type="checkbox" id="modalDigitalCheck" onchange="toggleModalCta()" />
+        <svg viewBox="0 0 12 10" fill="none">
+          <polyline points="1,5 4,8 11,1" stroke="#000" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <span class="terms-text">
+        I agree to immediate delivery of digital content and acknowledge that I lose my right of withdrawal
+      </span>
+    </label>
+
     <button class="terms-modal-confirm" id="modalConfirmBtn" disabled onclick="handleModalConfirm()">
       Continue →
     </button>
@@ -454,17 +473,18 @@ function goTo(id) {
 
 function openTermsModal() {
   const modal = document.getElementById('termsModal');
-  const cb = document.getElementById('modalTermsCheck');
-  const btn = document.getElementById('modalConfirmBtn');
-  cb.checked = false;
-  btn.disabled = true;
+  document.getElementById('modalTermsCheck').checked = false;
+  document.getElementById('modalDigitalCheck').checked = false;
+  document.getElementById('modalConfirmBtn').disabled = true;
   modal.classList.add('open');
 }
 function closeTermsModal() {
   document.getElementById('termsModal').classList.remove('open');
 }
-function toggleModalCta(cb) {
-  document.getElementById('modalConfirmBtn').disabled = !cb.checked;
+function toggleModalCta() {
+  const terms = document.getElementById('modalTermsCheck').checked;
+  const digital = document.getElementById('modalDigitalCheck').checked;
+  document.getElementById('modalConfirmBtn').disabled = !(terms && digital);
 }
 function handleModalConfirm() {
   if (!document.getElementById('modalConfirmBtn').disabled) {
